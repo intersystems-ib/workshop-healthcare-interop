@@ -1,0 +1,32 @@
+.vs
+obj
+bin
+*.bak
+
+# iris license
+iris.key
+
+# iris durable data
+irisdata/*
+
+# ssl certs
+ssl-cert.*
+*.pem
+
+# webserver
+webserver/webgateway/CSP.log
+
+# local ignored files
+local/*
+
+# generated hl7 files
+data/hl7files/*.hl7
+
+# generated hl7 files (data)
+data/maternalRisk/hl7gen/*.hl7
+
+# jupyter: ignore all but ipynb
+jupyter/notebooks/*
+!jupyter/notebooks/*.ipynb
+
+LOCAL.md

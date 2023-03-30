@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2023.1 (Build 185U)" ts="2023-03-28 17:12:45">
+<Global>
+<Node><Sub>^HS.Registry.Service.AbstractD</Sub>
+<Data>1</Data>
+<Node><Sub>1</Sub>
+<DataBase64>NAF+SFMuUmVnaXN0cnkuU2VydmljZS5UQ1B+SFMuUmVnaXN0cnkuU2VydmljZS5IVFRQfgEQAWZo
+aXJyZXBvLWJhc2ljBgFIVFRQAwQBAgECAQIBAQIEAgQ=
+</DataBase64>
+<Node><Sub>HTTP</Sub>
+<DataBase64>AgECASMBL2NzcC9oZWFsdGhzaGFyZS9maGlycmVwby9maGlyL3I0DwFGSElSUmVwb0Jhc2ljOQFo
+dHRwOi8vbG9jYWxob3N0OjUyNzczL2NzcC9oZWFsdGhzaGFyZS9maGlycmVwby9maGlyL3I0AgQC
+BAIEAwQBAgE=
+</DataBase64>
+</Node>
+<Node><Sub>TCP</Sub>
+<DataBase64>CwFsb2NhbGhvc3QEBCXOAgECAQ==
+</DataBase64>
+</Node>
+</Node>
+</Node>
+</Global>
+
+
+<Global>
+<Node><Sub>^HS.Registry.Service.AbstractI</Sub>
+<Node><Sub>$Abstract</Sub>
+<Node><Sub>1</Sub>
+<DataBase64>lgEBAAEA
+</DataBase64>
+</Node>
+</Node>
+<Node><Sub>$HTTP</Sub>
+<Node><Sub>1</Sub>
+<DataBase64>lgEBAAEA
+</DataBase64>
+</Node>
+</Node>
+<Node><Sub>$TCP</Sub>
+<Node><Sub>1</Sub>
+<DataBase64>lgEBAAEA
+</DataBase64>
+</Node>
+</Node>
+<Node><Sub>DeviceFunctionIndex</Sub>
+<Node><Sub> </Sub>
+<Node><Sub>1</Sub>
+<DataBase64>lgEBAAEA
+</DataBase64>
+</Node>
+</Node>
+</Node>
+<Node><Sub>EndPointIndex</Sub>
+<Node><Sub> HTTP://LOCALHOST:52773/CSP/HEALTHSHARE/FHIRREPO/FHIR/R4</Sub>
+<Node><Sub>1</Sub>
+<Data>~HS.Registry.Service.TCP~HS.Registry.Service.HTTP~</Data>
+</Node>
+</Node>
+</Node>
+<Node><Sub>NameTypeIndex</Sub>
+<Node><Sub> FHIRREPO-BASIC</Sub>
+<Node><Sub> HTTP</Sub>
+<Node><Sub>1</Sub>
+<Data>~HS.Registry.Service.TCP~HS.Registry.Service.HTTP~</Data>
+</Node>
+</Node>
+</Node>
+</Node>
+<Node><Sub>TypeIndex</Sub>
+<Node><Sub> HTTP</Sub>
+<Node><Sub>1</Sub>
+<Data>~HS.Registry.Service.TCP~HS.Registry.Service.HTTP~</Data>
+</Node>
+</Node>
+</Node>
+</Node>
+</Global>
+</Export>
