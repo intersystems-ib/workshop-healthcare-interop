@@ -79,7 +79,7 @@
   <Item Name="Demo.Loan.FindRateDecisionProcessCustom" Category="" ClassName="Demo.Loan.FindRateDecisionProcessCustom" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
   </Item>
-  <Item Name="Demo.Loan.FindRateDecisionProcessBPL" Category="" ClassName="Demo.Loan.FindRateDecisionProcessBPL" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="Demo.Loan.FindRateDecisionProcessBPL" Category="" ClassName="Demo.Loan.FindRateDecisionProcessBPL" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="InactivityTimeout">0</Setting>
   </Item>
   <Item Name="Demo.Loan.BankSoprano" Category="" ClassName="Demo.Loan.BankSoprano" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
