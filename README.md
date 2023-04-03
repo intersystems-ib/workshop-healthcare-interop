@@ -75,7 +75,7 @@ Open `workshop-healthcare-interop` folder in VS Code.
 * Have a look at how can messages be transformed.
 
 
-# FHIR Repository
+# FHIR Repository
 
 <img src="./img/fhirserver.png" width="800px"/>
 
@@ -92,7 +92,7 @@ zn "FHIRREPO"
 set sc = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/app/install/simple-fhir-data/","FHIRServer","/csp/healthshare/fhirrepo/fhir/r4")
 ```
 
-### Test FHIR repository
+### Test FHIR repository
 Open the Postman collection included in [workshop-healthcare-interop.postman_collection.json](./workshop-healthcare-interop.postman_collection.json) and try some requests on `FHIR Repo. Simple` and `FHIR Repo. Queries`.
 
 # FHIR Interoperability
@@ -150,7 +150,7 @@ FHIR SQL Builder is a tool that allows you to create your SQL schemas using data
 
 You will need to go through three simple steps:
 
-## Analyze your FHIR repository data
+## Analyze your FHIR repository data
 Access [FHIR SQL Builder](http://localhost:52773/csp/fhirsql/index.csp) and create a **New Analysis**:
 * New FHIR repository
 * Name: `fhirrepo`
@@ -169,7 +169,7 @@ Add some FHIR fields that will be projected as SQL, you can try the following:
 
 <img src="img/fhirsqlbuilder-transformation.png" width="900" />
 
-## Project data to SQL
+## Project data to SQL
 Simply create a **New Projection** specifying the package you want to use for your projection (e.g. `demo`).
 
 After that, you can access your data using SQL!
