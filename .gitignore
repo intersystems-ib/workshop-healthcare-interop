@@ -21,6 +21,8 @@ local/*
 
 # generated hl7 files
 data/hl7files/*.hl7
+test/out/*
+test/inarchive/*
 
 # generated hl7 files (data)
 data/maternalRisk/hl7gen/*.hl7
