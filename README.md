@@ -31,7 +31,7 @@ Open `workshop-healthcare-interop` folder in VS Code.
 
 * Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp).
 * Login using the default `superuser`/ `SYS` account.
-* *Interoperability > Namespace USER > List > Productions > Demo.Loan.FindRateProduction > Open*
+* *Interoperability > Namespace **INTEROP** > List > Productions > Demo.Loan.FindRateProduction > Open*
 * Start Production
 * Have a look at the Business Services, Business Processes and Business Operations.
 * Click on the *connector* (green ball) to see how the components are linked.
@@ -56,7 +56,7 @@ Open `workshop-healthcare-interop` folder in VS Code.
 * When you are done, stop the production.
 
 ## Start Demo.HL7.MsgRouter.Production
-* *Interoperability > Namespace USER > List > Productions > Demo.HL7.MsgRouter.Production > Open*
+* *Interoperability > Namespace **INTEROP** > List > Productions > Demo.HL7.MsgRouter.Production > Open*
 * Start production.
 * Have a look at the production, notice the prebuilt HL7 Business Services and Operations that are being used.
 * Explore the settings on those services and operations (e.g. FilePath, etc.)
