@@ -93,8 +93,7 @@ set sc = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/app/insta
 ```
 
 ### Test FHIR repository
-TODO
-
+Open the Postman collection included in [workshop-healthcare-interop.postman_collection.json](./workshop-healthcare-interop.postman_collection.json) and try some requests on `FHIR Repo. Simple` and `FHIR Repo. Queries`.
 
 # FHIR Interoperability
 
@@ -136,11 +135,45 @@ zn "INTEROP"
 set status = ##class(HS.FHIRServer.Installer).InteropAdapterConfig("/myendpoint/r4")
 ```
 
-TODO Test
-
-Test your service using [iris-fhir-interop.postman_collection.json](./iris-fhir-interop.postman_collection.json) Postman collection *FHIR Interop (OAuth)*
+Test your service using the Postman collection in [workshop-healthcare-interop.postman_collection.json](./workshop-healthcare-interop.postman_collection.json) and running some requests in `Interop` directory.
 
 
-### FHIR SQL Builder
+# FHIR Analytics: FHIR SQL Builder
 
-http://localhost:52773/csp/fhirsql/index.csp
+What about running analytics on top of a FHIR repository? Well, FHIR model is a directed graph, so it's not trivial.
+
+However, you can have a look at a new experimental feature: **InterSystems FHIR SQL Builder**.
+
+FHIR SQL Builder is a tool that allows you to create your SQL schemas using data from your FHIR repository without moving the data to a separate SQL repository.
+
+<img src="img/fhirsqlbuilder-ui.png" width="900" />
+
+You will need to go through three simple steps:
+
+## Analyze your FHIR repository data
+Access [FHIR SQL Builder](http://localhost:52773/csp/fhirsql/index.csp) and create a **New Analysis**:
+* New FHIR repository
+* Name: `fhirrepo`
+* Host: `localhost`
+* Port: `52773`
+* Credentials: create new credentials using `superuser` / `SYS`
+* FHIR repository endpoint: `/csp/healthshare/fhirrepo/fhir/r4`
+
+## Choose data you want to project to SQL
+Create a **New Transformation Specification**.
+
+Add some FHIR fields that will be projected as SQL, you can try the following:
+* `Patient.gender`
+* `Observation.code.coding.code`
+* `Observation.valueQuantity.value`
+
+<img src="img/fhirsqlbuilder-transformation.png" width="900" />
+
+## Project data to SQL
+Simply create a **New Projection** specifying the package you want to use for your projection (e.g. `demo`).
+
+After that, you can access your data using SQL!
+
+In your workshop you have included a [JupyterLab Notebook](http://localhost:8888/lab/tree/IRISPython.ipynb) to play with the data :)
+
+<img src="img/fhirsqlbuilder-projection.gif" width="900" />
