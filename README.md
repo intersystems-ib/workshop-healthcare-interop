@@ -85,7 +85,7 @@ Create FHIR server in Health > FHIRREPO > FHIR Configuration > Server Configurat
 * Core FHIR package: `hl7.fhir.r4.core@4.0.1`
 
 ### Load simple FHIR data
-Load some simple sample FHIR data into repo.
+Load some sample FHIR data into repo using [WebTerminal](http://localhost:52773/terminal/).
 
 ```objectscript
 zn "FHIRREPO"
@@ -128,7 +128,7 @@ During the adapter installation it will create:
 * A web application for your FHIR server endpoint.
 * An `InteropService` and `InteropOperation` in your production.
 
-Install the adapter:
+Install the adapter using [WebTerminal](http://localhost:52773/terminal/):
 
 ```
 zn "INTEROP"
