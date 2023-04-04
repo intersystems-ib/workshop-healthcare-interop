@@ -12,15 +12,16 @@ You can find more in-depth information in https://learning.intersystems.com.
 # Setup
 Build the image we will use during the workshop:
 
-```console
+```
 git clone https://github.com/intersystems-ib/workshop-healthcare-interop
 cd workshop-healthcare-interop
+
 docker-compose build
 ```
 
 * Run the containers we will use in the workshop:
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 Open `workshop-healthcare-interop` folder in VS Code.
@@ -130,7 +131,7 @@ During the adapter installation it will create:
 
 Install the adapter using [WebTerminal](http://localhost:52773/terminal/):
 
-```
+```objectscript
 zn "INTEROP"
 set status = ##class(HS.FHIRServer.Installer).InteropAdapterConfig("/myendpoint/r4")
 ```
