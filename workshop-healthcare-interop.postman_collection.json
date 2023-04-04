@@ -133,32 +133,6 @@
 					"response": []
 				},
 				{
-					"name": "get Observations",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Observation?code=http://loinc.org|15074-8",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Observation"
-							],
-							"query": [
-								{
-									"key": "code",
-									"value": "http://loinc.org|15074-8"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "get Patients",
 					"request": {
 						"method": "GET",
