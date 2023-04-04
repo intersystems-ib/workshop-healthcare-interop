@@ -3,6 +3,8 @@ Examples you can use to learn the main ideas involved in HealthCare Interoperabi
 
 You can find more in-depth information in https://learning.intersystems.com.
 
+👉 Slides available here [Healthcare-Interop-Workshop.pdf](./Healthcare-Interop-Workshop.pdf)
+
 # What do you need to install? 
 * [Git](https://git-scm.com/downloads) 
 * [Docker](https://www.docker.com/products/docker-desktop) (if you are using Windows, make sure you set your Docker installation to use "Linux containers").
