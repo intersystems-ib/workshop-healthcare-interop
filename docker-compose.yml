@@ -23,6 +23,7 @@ services:
       - "8888:8888"
     environment: 
       - JUPYTER_ENABLE_LAB=yes
+      - JUPYTER_ALLOW_INSECURE_WRITES=true
     volumes: 
       - ./jupyter/notebooks:/home/jovyan/
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
