@@ -18,12 +18,12 @@ Build the image we will use during the workshop:
 git clone https://github.com/intersystems-ib/workshop-healthcare-interop
 cd workshop-healthcare-interop
 
-docker-compose build
+docker compose build
 ```
 
 * Run the containers we will use in the workshop:
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 Open `workshop-healthcare-interop` folder in VS Code.
@@ -154,7 +154,7 @@ FHIR SQL Builder is a tool that allows you to create your SQL schemas using data
 You will need to go through three simple steps:
 
 ## Analyze your FHIR repository data
-Access [FHIR SQL Builder](http://localhost:52773/csp/fhirsql/index.csp) and create a **New Analysis**:
+Access [FHIR SQL Builder](http://localhost:52773/csp/fhirsql/index.html#/) and create a **New Analysis**:
 * New FHIR repository
 * Name: `fhirrepo`
 * Host: `localhost`

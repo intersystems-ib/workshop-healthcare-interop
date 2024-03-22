@@ -11,7 +11,7 @@
 
     // create INTEROP namespace
     set $namespace = "HSLIB"
-    do ##class(HS.HC.Util.Installer).InstallFoundation("INTEROP")
+    do ##class(HS.Util.Installer.Foundation).Install("INTEROP")
 
     // load code
     set $namespace = "INTEROP"
@@ -32,6 +32,6 @@
 
     // create FHIRREPO namespace
     set $namespace = "HSLIB"
-    do ##class(HS.HC.Util.Installer).InstallFoundation("FHIRREPO")
+    do ##class(HS.Util.Installer.Foundation).Install("FHIRREPO")
 
     halt
