@@ -77,6 +77,26 @@ Open `workshop-healthcare-interop` folder in VS Code.
 * Double-click on the Data Transform element and open the *DTL Editor*.
 * Have a look at how can messages be transformed.
 
+## Extend HL7 production
+Let's say that now you need to grab incoming `ORM^O01` messages from XYZ facility and create files with some patient data to send to other systems.
+
+So, you will need to figure out how to:
+* Process incoming XYZ_HL7FileService `ORM^O01` HL7 message
+* Extract patient data: medical record number, name, etc.
+* Write that information into a file
+
+You can follow these **guidelines** and try to implement it on your own:
+
+* Create a new message `interop.msg.PatientDataReq` that will contain your patient data. Check [documentation](https://docs.intersystems.com/irisforhealth20241/csp/docbook/Doc.View.cls?KEY=EGDV_messages) about defining messages.
+
+* Create a new Business Operation `interop.bo.PatientFileOperation` using [EnsLib.File.OutboundAdapter](https://docs.intersystems.com/irisforhealthlatest/csp/docbook/Doc.View.cls?KEY=EFIL_outbound). This operation will write your patient data to a file. Have a look at the [documentation](https://docs.intersystems.com/irisforhealthlatest/csp/docbook/Doc.View.cls?KEY=EFIL_outbound) so you can see what's the structure that you need.
+
+* Add your business operation to production and test it.
+
+* Create a data transformation `interop.dt.ormO01toPatientDataReq` to transform ORM^O01 HL7 messages into `interop.msg.PatientDataReq` so you can extract patient information. Test your data transformation.
+
+* Modify XYZ_Router rules so you can grab ORM^O01 messages, transform them using `interop.dt.ormO01toPatientDataReq` and finally sending them to your business operation.
+
 
 # FHIR Repository
 
@@ -140,6 +160,20 @@ set status = ##class(HS.FHIRServer.Installer).InteropAdapterConfig("/myendpoint/
 
 Test your service using the Postman collection in [workshop-healthcare-interop.postman_collection.json](./workshop-healthcare-interop.postman_collection.json) and running some requests in `Interop` directory.
 
+
+## Check some other features
+
+Latest release of IRIS For Health introduces some interesting features such as [FHIR Object Classes](https://docs.intersystems.com/irisforhealthlatest/csp/docbook/DocBook.UI.Page.cls?KEY=HXFHIR_data#HXFHIR_data_classes_features).
+
+So keep in mind that you just can use objects to work with FHIR content as you need:
+
+```objectscript
+set file = ##class(%Stream.FileCharacter).%New()
+set file.Filename = "/app/data/patient.json"
+set json = {}.%FromJSON(file)
+set patient =  ##class(HS.FHIRModel.R4.Patient).fromDao(json)
+zw patient.name.get(0).family
+```
 
 # FHIR Analytics: FHIR SQL Builder
 
