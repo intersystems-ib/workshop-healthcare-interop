@@ -3,19 +3,21 @@
     set $namespace = "%SYS"
     do ##class(Security.Users).UnExpireUserPasswords("*")
 
-    // install zpm
-    set r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/latest/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
-
-    // load installer
-    do $SYSTEM.OBJ.Load("/opt/irisapp/Installer.cls", "ck") 
-
     // create INTEROP namespace
     set $namespace = "HSLIB"
     do ##class(HS.Util.Installer.Foundation).Install("INTEROP")
 
+    // create FHIRREPO namespace
+    set $namespace = "HSLIB"
+    do ##class(HS.Util.Installer.Foundation).Install("FHIRREPO")
+
     // load code
     set $namespace = "INTEROP"
     
+    // install ipm
+    set version="latest" s r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/"_version_"/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
+    zpm "enable -community"
+
     do $SYSTEM.OBJ.LoadDir("/opt/irisapp/install/HL7", "ck", ,1)
     do $SYSTEM.OBJ.LoadDir("/opt/irisapp/install/Loan", "ck", ,1)
     do $system.OBJ.Load("/opt/irisapp/install/Loan/latest/csp/app/DemoLoanForm.csp", "ck")
@@ -28,10 +30,5 @@
 
     // install webterminal
     zpm "install webterminal"
-
-
-    // create FHIRREPO namespace
-    set $namespace = "HSLIB"
-    do ##class(HS.Util.Installer.Foundation).Install("FHIRREPO")
 
     halt
