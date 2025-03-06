@@ -1,0 +1,57 @@
+{
+  "name": "fhirtransf",
+  "scanId": 2,
+  "description": "",
+  "resources": [
+    {
+      "resourceType": "Patient",
+      "columns": [
+        {
+          "name": "Gender",
+          "type": "String",
+          "path": "Patient.gender",
+          "index": true,
+          "dataIndex": false,
+          "length": 10,
+          "RENAMED": "PatientGender"
+        }
+      ]
+    },
+    {
+      "resourceType": "Observation",
+      "columns": [
+        {
+          "name": "CodeCodingCode",
+          "type": "String",
+          "path": "Observation.code.coding.code",
+          "index": true,
+          "dataIndex": false,
+          "length": 10,
+          "RENAMED": "ObservationCodeCodingCode"
+        },
+        {
+          "name": "CodeCodingDisplay",
+          "type": "String",
+          "path": "Observation.code.coding.display",
+          "index": false,
+          "dataIndex": false,
+          "length": 100,
+          "RENAMED": "ObservationCodeCodingDisplay"
+        },
+        {
+          "name": "ValueQuantityValue",
+          "type": "Number",
+          "path": "Observation.valueQuantity.value",
+          "index": false,
+          "dataIndex": false,
+          "RENAMED": "ObservationValueQuantityValue"
+        }
+      ]
+    }
+  ],
+  "version": 1,
+  "scanStartDateTime": "2025-03-06T09:26:38Z",
+  "scanFHIRRepositoryName": "fhirrepo",
+  "id": 2,
+  "lastModified": "2025-03-06T09:35:15.432Z"
+}
