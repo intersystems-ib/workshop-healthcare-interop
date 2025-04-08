@@ -1,5 +1,6 @@
 services:
 
+  # InterSystems IRIS for Health
   iris:
     init: true
     hostname: iris
@@ -12,6 +13,20 @@ services:
     - "1972:1972"
     volumes:
     - .:/app
+
+  # Sample external database to integrate from InterSystems IRIS interoperability framework  
+  mysql:
+    build:
+      context: mysql
+      dockerfile: Dockerfile
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpassword
+    ports:
+      - "3306:3306"
 
   jupyter:
     container_name: jupyter

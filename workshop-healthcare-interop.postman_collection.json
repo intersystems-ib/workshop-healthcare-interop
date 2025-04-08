@@ -7,6 +7,101 @@
 	},
 	"item": [
 		{
+			"name": "HIS Order",
+			"item": [
+				{
+					"name": "Order Blood Glucose",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"msgId\": \"DDJ-20250408-001\",\n  \"orderId\": \"ORD-20250408-001\",\n  \"patient\": {\n    \"mrn\": \"PAT-12345\",\n    \"name\": \"Juan Perez\",\n    \"birthDate\": \"1980-05-15\",\n    \"gender\": \"male\"\n  },\n  \"practitioner\": {\n    \"identifier\": \"DR-98765\",\n    \"name\": \"Dr. Maria Gomez\"\n  },\n  \"orderDateTime\": \"2025-04-08T10:30:00Z\",\n  \"test\": {\n      \"code\": \"GLU\",\n      \"description\": \"Blood glucose test\",\n      \"priority\": \"routine\"\n   },\n  \"clinicalInfo\": \"Patient with dizziness and history of diabetes.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}:{{port}}/his/api/order",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"his",
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Lipid Panel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"msgId\": \"XDF-20250408-002\",\n  \"orderId\": \"ORD-20250408-002\",\n  \"patient\": {\n    \"mrn\": \"PAT-67890\",\n    \"name\": \"Laura Smith\",\n    \"birthDate\": \"1975-11-22\",\n    \"gender\": \"female\"\n  },\n  \"practitioner\": {\n    \"identifier\": \"DR-12345\",\n    \"name\": \"Dr. John Miller\"\n  },\n  \"orderDateTime\": \"2025-04-08T11:00:00Z\",\n  \"test\": {\n      \"code\": \"LIP\",\n      \"description\": \"Lipid Panel\",\n      \"priority\": \"routine\"\n   },\n  \"clinicalInfo\": \"Routine check-up for cardiovascular risk assessment.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}:{{port}}/his/api/order",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"his",
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Blood Count",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"msgId\": \"SSJ-20250408-003\",\n  \"orderId\": \"ORD-20250408-003\",\n  \"patient\": {\n    \"mrn\": \"PAT-54321\",\n    \"name\": \"Michael Johnson\",\n    \"birthDate\": \"1990-03-10\",\n    \"gender\": \"male\"\n  },\n  \"practitioner\": {\n    \"identifier\": \"DR-67890\",\n    \"name\": \"Dr. Emily Davis\"\n  },\n  \"orderDateTime\": \"2025-04-08T11:15:00Z\",\n  \"test\": {\n      \"code\": \"CBC\",\n      \"description\": \"Complete Blood Count\",\n      \"priority\": \"urgent\"\n   },\n  \"clinicalInfo\": \"Patient reports fatigue and pale skin.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}:{{port}}/his/api/order",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"his",
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "FHIR Repo. Simple",
 			"item": [
 				{
@@ -24,6 +119,26 @@
 							"path": [
 								"{{fhirendpoint}}",
 								"metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get Patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{fhirendpoint}}",
+								"Patient"
 							]
 						}
 					},
@@ -87,8 +202,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"type": "text",
-								"value": "application/fhir+json"
+								"value": "application/fhir+json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -127,26 +242,6 @@
 								"{{fhirendpoint}}",
 								"Patient",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Patients",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Patient"
 							]
 						}
 					},
@@ -503,6 +598,51 @@
 								{
 									"key": "_count",
 									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MIME Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "",
+								"value": "application/dicom",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "test.pdf",
+									"description": "application/dicom",
+									"type": "file",
+									"src": "/Users/afuentes/Downloads/Info-ApacheNifi.pdf"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:52773/mimeservice/studies",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "52773",
+							"path": [
+								"mimeservice",
+								"studies"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}

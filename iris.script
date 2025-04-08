@@ -11,24 +11,34 @@
     set $namespace = "HSLIB"
     do ##class(HS.Util.Installer.Foundation).Install("FHIRREPO")
 
-    // load code
-    set $namespace = "INTEROP"
-    
     // install ipm
+    set $namespace = "INTEROP"
     set version="latest" s r=##class(%Net.HttpRequest).%New(),r.Server="pm.community.intersystems.com",r.SSLConfiguration="ISC.FeatureTracker.SSL.Config" d r.Get("/packages/zpm/"_version_"/installer"),$system.OBJ.LoadStream(r.HttpResponse.Data,"c")
     zpm "enable -community"
 
-    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/install/HL7", "ck", ,1)
-    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/install/Loan", "ck", ,1)
-    do $system.OBJ.Load("/opt/irisapp/install/Loan/latest/csp/app/DemoLoanForm.csp", "ck")
-    do $system.OBJ.Load("/opt/irisapp/install/Loan/latest/csp/app/DemoLoanSubmit.csp", "ck")
+    // install ipm packages
+    zpm "install webterminal"
+    zpm "install healthcare-hl7-xml"
 
+    // load interop code
+    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/install/HL7", "ck", ,1)
     do $system.OBJ.Load("/opt/irisapp/install/Credentials.xml")
     do $system.OBJ.Load("/opt/irisapp/install/ServiceRegistry.xml")
+    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/ns-interop/src", "ck", .errorlog, 1)
 
-    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/src", "ck", .errorlog, 1)
+    // create credentials
+    do ##class(Ens.Config.Credentials).SetCredential("MySQL_User","testuser","testpassword")
+    do ##class(Ens.Config.Credentials).SetCredential("HISWS_User","superuser","SYS")
 
-    // install webterminal
-    zpm "install webterminal"
+    // lookup tables
+    do ##class(Ens.Util.LookupTable).%Import("/opt/irisapp/install/HIS-LAB-AdministrativeSex.xml")
+
+    // load fhirrepo code
+    set $namespace = "FHIRREPO"
+    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/ns-fhirrepo/src", "ck", .errorlog, 1)
+
+    // import web applications
+    set $namespace = "%SYS"
+    do ##class(Security.Applications).Import("/opt/irisapp/install/webapps.xml")
 
     halt

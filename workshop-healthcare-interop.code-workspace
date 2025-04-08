@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"name": "main",
+			"path": "."
+		},
+		{
+			"name": "ns-interop",
+			"path": "ns-interop"
+		},
+		{
+			"name": "ns-fhirrepo",
+			"path": "ns-fhirrepo"
+		},
+		{
+			"name": "ns-user",
+			"path": "ns-user"
+		}
+	],
+}
