@@ -16,6 +16,7 @@ COPY --chown=irisowner:irisowner install install
 COPY --chown=irisowner:irisowner iris.script iris.script
 COPY --chown=irisowner:irisowner ns-interop ns-interop
 COPY --chown=irisowner:irisowner ns-fhirrepo ns-fhirrepo
+COPY --chown=irisowner:irisowner ns-user ns-user
 
 # run iris.script
 RUN iris start IRIS \

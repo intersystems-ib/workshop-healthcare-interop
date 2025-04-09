@@ -102,7 +102,7 @@
 			]
 		},
 		{
-			"name": "FHIR Repo. Simple",
+			"name": "FHIR Repository",
 			"item": [
 				{
 					"name": "metadata",
@@ -125,7 +125,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patients",
+					"name": "Patients",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -175,7 +175,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patient/1",
+					"name": "Patient/1",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -227,7 +227,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patient/1/_history/1",
+					"name": "Version Patient/1/_history/1",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -248,7 +248,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patients (gender)",
+					"name": "Search Patients (gender)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -274,7 +274,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patients (name)",
+					"name": "Search Patients (name)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -298,40 +298,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "FHIR Repo. Queries",
-			"item": [
-				{
-					"name": "get Patient. gender Female",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient?gender=female",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Patient"
-							],
-							"query": [
-								{
-									"key": "gender",
-									"value": "female"
-								}
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "get Observation. Potassium paginated",
+					"name": "Search Observation. Potassium paginated",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -368,7 +337,7 @@
 					"response": []
 				},
 				{
-					"name": "get Observation. Potassium < 4",
+					"name": "Search Observation. Potassium < 4",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -398,61 +367,7 @@
 					"response": []
 				},
 				{
-					"name": "get Observation. Glucose",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Observation?code=http://loinc.org|2339-0",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Observation"
-							],
-							"query": [
-								{
-									"key": "code",
-									"value": "http://loinc.org|2339-0"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Patient/p/Observation. Final",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient/2/Observation?status=final",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Patient",
-								"2",
-								"Observation"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "final"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Patient/p/$everything",
+					"name": "Patient $everything (XML)",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -463,7 +378,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient/2/$everything",
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient/10/$everything",
 							"protocol": "http",
 							"host": [
 								"{{server}}"
@@ -472,7 +387,7 @@
 							"path": [
 								"{{fhirendpoint}}",
 								"Patient",
-								"2",
+								"10",
 								"$everything"
 							]
 						}
@@ -480,7 +395,7 @@
 					"response": []
 				},
 				{
-					"name": "get Observation Weight > 80 Kg since d",
+					"name": "Search Observation Weight > 80 Kg since d",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -514,7 +429,7 @@
 					"response": []
 				},
 				{
-					"name": "get Encounter. Bronchitis Amb since d",
+					"name": "Search Encounter. Bronchitis Amb since d",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -541,6 +456,72 @@
 								{
 									"key": "date",
 									"value": "ge2018-01-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search MedicationRequest (Join)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/MedicationRequest?code:text=Loratadine&_include=MedicationRequest:requester",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{fhirendpoint}}",
+								"MedicationRequest"
+							],
+							"query": [
+								{
+									"key": "code:text",
+									"value": "Loratadine"
+								},
+								{
+									"key": "_include",
+									"value": "MedicationRequest:requester"
+								},
+								{
+									"key": "_revinclude",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Patient (has)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient?_has:Observation:patient:code=8302-2",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{fhirendpoint}}",
+								"Patient"
+							],
+							"query": [
+								{
+									"key": "_revinclude",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "_has:Observation:patient:code",
+									"value": "8302-2"
 								}
 							]
 						}

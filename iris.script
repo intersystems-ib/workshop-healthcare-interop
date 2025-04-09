@@ -20,10 +20,8 @@
     zpm "install webterminal"
     zpm "install healthcare-hl7-xml"
 
-    // load interop code
+    // === load interop code
     do $SYSTEM.OBJ.LoadDir("/opt/irisapp/install/HL7", "ck", ,1)
-    do $system.OBJ.Load("/opt/irisapp/install/Credentials.xml")
-    do $system.OBJ.Load("/opt/irisapp/install/ServiceRegistry.xml")
     do $SYSTEM.OBJ.LoadDir("/opt/irisapp/ns-interop/src", "ck", .errorlog, 1)
 
     // create credentials
@@ -33,9 +31,24 @@
     // lookup tables
     do ##class(Ens.Util.LookupTable).%Import("/opt/irisapp/install/HIS-LAB-AdministrativeSex.xml")
 
-    // load fhirrepo code
+    // start production
+    set production = "Demo.OrderProduction"
+    set ^Ens.Configuration("csp","LastProduction") = production
+    do ##class(Ens.Director).SetAutoStart(production)
+
+    // === load fhirrepo code
     set $namespace = "FHIRREPO"
     do $SYSTEM.OBJ.LoadDir("/opt/irisapp/ns-fhirrepo/src", "ck", .errorlog, 1)
+    
+    // service registry config
+    do $system.OBJ.Load("/opt/irisapp/install/ServiceRegistry.xml")
+    
+    // credentials
+    do ##class(Ens.Config.Credentials).SetCredential("FHIRRepoBasic","superuser","SYS")
+
+    // === load user code
+    set $namespace = "USER"
+    do $SYSTEM.OBJ.LoadDir("/opt/irisapp/ns-user/src", "ck", .errorlog, 1)
 
     // import web applications
     set $namespace = "%SYS"
