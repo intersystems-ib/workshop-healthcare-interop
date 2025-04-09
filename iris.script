@@ -54,4 +54,7 @@
     set $namespace = "%SYS"
     do ##class(Security.Applications).Import("/opt/irisapp/install/webapps.xml")
 
+    // import roles
+    do ##class(Security.Roles).Import("/opt/irisapp/install/roles.xml")
+
     halt
