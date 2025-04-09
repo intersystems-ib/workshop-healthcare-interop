@@ -1,23 +1,27 @@
-# Workshop: Intro to Healthcare Interoperability
-This repository contains a set of hands-on examples of healthcare integrations to help you understand **InterSystems IRIS for Health Interoperability Framework**.
+# 🏥 Workshop: Intro to Healthcare Interoperability
 
-> For more in-depth learning resources, visit [InterSystems Learning](https://learning.intersystems.com).
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE) [![Docker Ready](https://img.shields.io/badge/docker-ready-blue)](https://www.docker.com/) [![VS Code Compatible](https://img.shields.io/badge/VS%20Code-Compatible-blueviolet)](https://code.visualstudio.com/) [![Maintained](https://img.shields.io/badge/status-maintained-brightgreen)](#) [![InterSystems IRIS](https://img.shields.io/badge/Powered%20by-InterSystems%20IRIS-ff69b4)](https://www.intersystems.com/iris)
 
-> If you are interested in diagnostic image interoperability, visit [workshop-iris-dicom-interop](https://github.com/intersystems-ib/workshop-iris-dicom-interop)
+Welcome to this hands-on workshop designed to help you explore **InterSystems IRIS for Health** and its powerful **Interoperability Framework** through real-world healthcare integration scenarios.
 
-# Requirements
-
-To run this workshop, please make sure you have the following installed:
-
-- [Git](https://git-scm.com/downloads)  
-- [Docker](https://www.docker.com/products/docker-desktop) and [Docker Compose](https://docs.docker.com/compose/install/) - ⚠️ On Windows, ensure Docker is set to use **Linux containers**.  
-- [Visual Studio Code](https://code.visualstudio.com/download) with [InterSystems ObjectScript Extension Pack](https://marketplace.visualstudio.com/items?itemName=intersystems-community.objectscript-pack)
+🔗 For extended learning, check out [InterSystems Learning](https://learning.intersystems.com).  
+🖼️ Interested in imaging workflows? Visit our [DICOM Interop Workshop](https://github.com/intersystems-ib/workshop-iris-dicom-interop).
 
 ---
 
-# Setup
+## 🧰 Requirements
 
-Clone the repository and start the project using Docker Compose:
+Before you begin, make sure you have the following tools installed:
+
+- [Git](https://git-scm.com/downloads)  
+- [Docker & Docker Compose](https://docs.docker.com/compose/install/)  - ⚠️ On **Windows**, Docker must be set to use **Linux containers**  
+- [Visual Studio Code](https://code.visualstudio.com/download) with the [InterSystems ObjectScript Extension Pack](https://marketplace.visualstudio.com/items?itemName=intersystems-community.objectscript-pack)
+
+---
+
+## 🚀 Getting Started
+
+Clone this repo and spin up the environment with Docker Compose:
 
 ```bash
 git clone https://github.com/intersystems-ib/workshop-healthcare-interop
@@ -26,52 +30,51 @@ docker compose build
 docker compose up -d
 ```
 
-Then, open the `workshop-healthcare-interop` folder in **VS Code**.
+Open the `workshop-healthcare-interop` folder in **VS Code** to explore the source.
 
 ---
 
-# Hands-on 
+## 💡 Scenario 1: HIS Orders & Lab Results
 
-## 1. HIS sends an order to Lab and Lab sends back results
-
-### HIS creates order to LAB
+### 🧾 Step 1: HIS Sends Order to LAB
 
 <img src="./img/hl7-create-order.png" width="900px" />
 
-In this scenario: a HIS sends an order to IRIS using custom REST message, IRIS will validate the test using the Laboratory catalog through SQL (external database) and then will transform it into a ORM^O01 HL7 message that will be sent to Lab.
+**Flow Summary**:  
+>A Hospital Information System (HIS) sends a REST request to IRIS → IRIS validates the test code via an external SQL catalog → IRIS transforms the message into HL7 (ORM^O01) → Sends it to the Laboratory.
 
-* Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp).
-* Login using the default `superuser`/ `SYS` account.
-* Open [Demo.OrderProduction](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.OrderProduction). This production contains all the components we need to run this scenario.
-* Have a look at the Business Services, Business Processes and Business Operations. Those components are responsible for input data, process it and output to other systems. Check the different settings available for each component. 
-* Click on the *connector* (green ball) to see how the components are linked.
-* See the *Legend* to understand the meaning of the different colors of the components.
+#### 🔍 Explore the Production
 
-#### Test LAB Catalog SQL Business Operation
+- Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp)  
+- Login with: `superuser` / `SYS`
+- Go to [Demo.OrderProduction](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.OrderProduction)
 
-* Click on `LAB Catalog SQL` component to test it independently. So you can check if a test code is available.
-* This component will actually run a query in an external SQL as part of the integration.
-* Go to *Actions* tab > Test > Choose a `Demo.LAB.Msg.CheckTestCatalogReq` message.
-* Enter some a test code like `GLU` or `CBC` and see the output in the resulting Visual Trace.
-* Have a look at the involved Business Operation and Messages in VS Code.
+Explore:
+- Components: Business Services, Processes, Operations
+- Visual trace & connector lines
+- Component settings and data flow
 
-If you are curious, you can connect to the external MySQL and run the query:
+#### 🧪 Test the LAB Catalog Lookup
+
+- Select the `LAB Catalog SQL` component. This is the component that runs a SQL query in an external DB to validate a test code.
+- Use *Actions > Test* with message type: `Demo.LAB.Msg.CheckTestCatalogReq`
+- Try codes like `GLU` or `CBC` and check the results
+
+If you are interested in having a look at the the catalog DB directly:
 
 ```bash
 docker exec -it mysql bash
 mysql --host=localhost --user=testuser testdb -p  # Password: testpassword
 ```
 
-Query example:
-
 ```sql
-select * from TestCatalog;
+SELECT * FROM TestCatalog;
 ```
 
-#### Create a new order from HIS
+#### 📤 Send an Order from HIS
 
-* You can create a new order from HIS using Postman (check the included collection in [workshop-healthcare-interop.postman_collection](workshop-healthcare-interop.postman_collection.json))
-* Or you can simply use `curl`:
+Use Postman ([collection](workshop-healthcare-interop.postman_collection.json) provided) or `curl` to create a new order from HIS:
+
 ```bash
 curl -X POST http://localhost:52773/his/api/order \
   -H "Content-Type: application/json" \
@@ -98,133 +101,128 @@ curl -X POST http://localhost:52773/his/api/order \
 }'
 ```
 
-* Open http://localhost:52773/csp/healthshare/interop/DemoLoanForm.csp and enter some data (you can test with different values).
-* Go back to your production and open the [Message Viewer](http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen).
-* Have a look at the messages, go through some of the traces.
-* Pay attention to the elements involved and the flow of the data in your integration.
+Then:
+- Open the [Message Viewer](http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen)
+- Inspect traces and data flow
 
-#### Inspect HIS Order Process definition
-* As you can see in the Visual Trace, `HIS Order Process` is the main process in the flow that coordinates calls to LAB Catalog and also builds the HL7 message that will be sent to Laboratory.
-* Back in [Demo.OrderProduction](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.OrderProduction), click on `HIS Order Process`.
-* On the settings tab, click on the magnifyer icon on the *Class name* setting.
-* Inspect the graphical BPL definition of the process.
+#### ⚙️ Inspect the BPL Process & Data Transformations
+
+- Click on `HIS Order Process` > magnifier icon next to *Class name*
+- Inspect the **BPL** (Business Process Language) graphical flow
 
 <img src="./img/his-order-process-bpl.png" width="400px" />
 
-* In this same process definition, check any *Transform* action. Click on *DTL Editor* to access the Data Transformation definition
-
+- Check *Transform* actions > Open **DTL Editor**
 <img src="./img/data-transform.png" width="900px" />
 
+---
 
-### LAB sends back results
+### 📥 Step 2: LAB Sends Back Results
 
-#### Send a ORU^R01 result from LAB
-* In your VS Code with `workshop-healthcare-interop` opened, copy `test/ORUR01_*` files into `test/in` subdirectory. This will simulate that the Laboratory is sending results back to HIS.
-* Go back to the production and see [Message Viewer](http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen).
-* Explore some the new messages that have appeared. Notice the HL7 messages and the flow of data.
+#### 🔁 Simulate ORU^R01 Messages
 
-#### Explore Laboratory HL7 Routing Rules
-* Click on `LAB HL7 Router In` component. This component receives all incoming HL7 from Laboratory and decide where it will be processed within the production.
-* Click on the magnifying glass on *Business Rule Name* in the Settings Tab to check the actual rules that are being applied.
+- Copy `test/ORUR01_*` files into `test/in` directory
+- Monitor message flow in [Message Viewer](http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen)
+
+#### 🧠 Understand HL7 Routing
+
+- Open `LAB HL7 Router In`
+- Check routing rules by clicking the magnifier next to *Business Rule Name*
 
 <img src="./img/rule-editor.png" width="700px" />
 
-# FHIR Repository
+---
 
-In this scenario, we are going to create a FHIR repository in InterSystems IRIS For Health so we can persist FHIR resources and use the included API. So, for instance we will be able to create, search, update and delete [resources](https://hl7.org/fhir/R4/resourcelist.html) such as Patients, Observations, etc.
+## 📦 Scenario 2: FHIR Repository
 
-## Create FHIR endpoint
-Create FHIR server in Health > FHIRREPO > FHIR Configuration > Server Configuration as:
-* Namespace: `FHIRREPO`
-* Name: `fhirrepo`
-* URL: `/csp/healthshare/fhirrepo/fhir/r4`
-* FHIR Version `FHIR R4`
+Let’s persist and interact with FHIR resources via InterSystems IRIS for Health.
+
+### 🏗️ Create a FHIR Server
+
+In **Health > FHIRREPO > FHIR Configuration > Server Configuration**, define:
+
+- Namespace: `FHIRREPO`
+- Name: `fhirrepo`
+- URL: `/csp/healthshare/fhirrepo/fhir/r4`
+- Version: `FHIR R4`
 
 <img src="./img/fhirrepo-create.png" width="700px" />
 
-This will take some time, depending on your machine resources.
+### 📥 Load FHIR Data
 
-## Load simple FHIR data
-
-Now, let's add some sample FHIR data to populate our repository using [WebTerminal](http://localhost:52773/terminal/).
+In [WebTerminal](http://localhost:52773/terminal/):
 
 ```objectscript
 zn "FHIRREPO"
-set sc = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/app/install/simple-fhir-data/","FHIRServer","/csp/healthshare/fhirrepo/fhir/r4")
+set sc = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/app/install/simple-fhir-data/", "FHIRServer", "/csp/healthshare/fhirrepo/fhir/r4")
 ```
-
-After that, you will have a populated FHIR repository where you can try some interactions.
 
 <img src="./img/fhir-resource-loaded.png" width="700px" />
 
-## Use your FHIR APIs
-Now you can test the FHIR repository using FHIR interactions through the APIs.
+### 🔗 Interact via API
 
-You can use the included Postman collection in [workshop-healthcare-interop.postman_collection.json](./workshop-healthcare-interop.postman_collection.json).
+Use Postman ([collection](./workshop-healthcare-interop.postman_collection.json) included): 
+<img src="img/postman-fhir.png" width="900px"/>
 
+or run this ObjectScript snippet to leverage pre-built clients:
 
-<img src="./img/postman-fhir.png" width="900px" />
-
-Or you can also invoke programatically this APIs using the clients in Objectscript, for instance:
 ```objectscript
 set clientObj = ##class(HS.FHIRServer.RestClient.FHIRService).CreateInstance("/csp/healthshare/fhirrepo/fhir/r4")
 do clientObj.SetResponseFormat("JSON")
 set response = clientObj.Read("GET", "Patient", "10")
 zwrite response.Json
-zwrite response.Json
 ```
 
-# FHIR Interoperability
+---
 
-Let's say that you want to use the interoperability framework to manipulate the requests before or after it reaches the actual FHIR repository.
+## 🔄 FHIR Interoperability
 
-You can set up your repository to process all incoming requests using a Business Service.
+You can also route FHIR requests through IRIS’ Interoperability engine and leverage all the framework power:
 
-To try that:
-1-Open the [FHIR Server Management](http://localhost:52773/csp/fhir-management/index.html#/home) and edit your FHIR server.
-2-Then, in the *FHIR Server Service Configuration* section:
-* Service Config Name: `InteropService`. This will set this Business Service in the [fhirdemo.Production](http://localhost:52773/csp/healthshare/fhirrepo/EnsPortal.ProductionConfig.zen?PRODUCTION=fhirdemo.Production) to process all incoming requests.
+1. Go to [FHIR Server Management](http://localhost:52773/csp/fhir-management/index.html#/home)
+2. Edit your server → In *FHIR Server Service Configuration*:
+Set `InteropService` as your Service Config Name
 
-So now, run again some FHIR requests and check the [Messages](http://localhost:52773/csp/healthshare/fhirrepo/EnsPortal.MessageViewer.zen) in the [fhirdemo.Production](http://localhost:52773/csp/healthshare/fhirrepo/EnsPortal.ProductionConfig.zen?PRODUCTION=fhirdemo.Production).
+Now, incoming FHIR requests will go through [fhirdemo.Production](http://localhost:52773/csp/healthshare/fhirrepo/EnsPortal.ProductionConfig.zen?PRODUCTION=fhirdemo.Production)
 
-# FHIR Analytics: FHIR SQL Builder
+You can inspect all transactions in the [Message Viewer](http://localhost:52773/csp/healthshare/fhirrepo/EnsPortal.MessageViewer.zen).
 
-What about running analytics on top of a FHIR repository? Well, FHIR model is a directed graph, so it's not trivial.
+---
 
-However, you can have a look at a new experimental feature: **InterSystems FHIR SQL Builder**.
+## 📊 FHIR Analytics with FHIR SQL Builder
 
-FHIR SQL Builder is a tool that allows you to create your SQL schemas using data from your FHIR repository without moving the data to a separate SQL repository.
+FHIR data is graph-based, but with **FHIR SQL Builder**, you can query it via SQL — no data duplication needed!
 
-<img src="img/fhirsqlbuilder-ui.png" width="900" />
+### Step 1: 🔍 Analyze Repository
 
-You will need to go through three simple steps:
+- Open [FHIR SQL Builder UI](http://localhost:52773/csp/fhirsql/index.html#/)
+- Create New Analysis:
+  - Repository: `fhirrepo`, host: `localhost`, port: `52773`
+  - Credentials: `superuser` / `SYS`
+  - Endpoint: `/csp/healthshare/fhirrepo/fhir/r4`
 
-## Analyze your FHIR repository data
-Access [FHIR SQL Builder](http://localhost:52773/csp/fhirsql/index.html#/) and create a **New Analysis**:
-* New FHIR repository
-* Name: `fhirrepo`
-* Host: `localhost`
-* Port: `52773`
-* Credentials: create new credentials using `superuser` / `SYS`
-* FHIR repository endpoint: `/csp/healthshare/fhirrepo/fhir/r4`
+### Step 2: 📐 Define SQL Projection
 
-## Choose data you want to project to SQL
-Create a **New Transformation Specification**.
+- Create a **Transformation Spec**
+- Add paths like:
+  - `Patient.gender`
+  - `Observation.code.coding.code`
+  - `Observation.valueQuantity.value`
 
-Add some FHIR fields that will be projected as SQL, you can try the following:
-* `Patient.gender`
-* `Observation.code.coding.code`
-* `Observation.valueQuantity.value`
+<img src="img/fhirsqlbuilder-transformation.png" width="900px" />
 
-<img src="img/fhirsqlbuilder-transformation.png" width="900" />
+Or import `install/fhirtransf.json`.
 
-Or you can just import the transformation defined in [fhirtransf.json](install/fhirtransf.json).
+### Step 3: 📤 Project to SQL
 
-## Project data to SQL
-Simply create a **New Projection** specifying the package you want to use for your projection (e.g. `demo`).
+Define a package (e.g. `demo`) for your SQL projection.
 
-After that, you can access your data using SQL!
+Test it using the provided [Jupyter Notebook](http://localhost:8888/lab/tree/IRISPython.ipynb)!
 
-In your workshop you have included a [JupyterLab Notebook](http://localhost:8888/lab/tree/IRISPython.ipynb) to play with the data :)
+<img src="img/fhirsqlbuilder-projection.gif" width="900px" />
 
-<img src="img/fhirsqlbuilder-projection.gif" width="900" />
+---
+
+## 🙌 You're Ready!
+
+Explore, break things, build your own flows — and don’t forget to have fun learning how **InterSystems IRIS for Health** helps solve real-world interoperability challenges!
