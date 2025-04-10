@@ -7,7 +7,102 @@
 	},
 	"item": [
 		{
-			"name": "FHIR Repo. Simple",
+			"name": "HIS Order",
+			"item": [
+				{
+					"name": "Order Blood Glucose",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"msgId\": \"DDJ-20250408-001\",\n  \"orderId\": \"ORD-20250408-001\",\n  \"patient\": {\n    \"mrn\": \"PAT-12345\",\n    \"name\": \"Juan Perez\",\n    \"birthDate\": \"1980-05-15\",\n    \"gender\": \"male\"\n  },\n  \"practitioner\": {\n    \"identifier\": \"DR-98765\",\n    \"name\": \"Dr. Maria Gomez\"\n  },\n  \"orderDateTime\": \"2025-04-08T10:30:00Z\",\n  \"test\": {\n      \"code\": \"GLU\",\n      \"description\": \"Blood glucose test\",\n      \"priority\": \"routine\"\n   },\n  \"clinicalInfo\": \"Patient with dizziness and history of diabetes.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}:{{port}}/his/api/order",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"his",
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Lipid Panel",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n   \"msgId\": \"XDF-20250408-002\",\n  \"orderId\": \"ORD-20250408-002\",\n  \"patient\": {\n    \"mrn\": \"PAT-67890\",\n    \"name\": \"Laura Smith\",\n    \"birthDate\": \"1975-11-22\",\n    \"gender\": \"female\"\n  },\n  \"practitioner\": {\n    \"identifier\": \"DR-12345\",\n    \"name\": \"Dr. John Miller\"\n  },\n  \"orderDateTime\": \"2025-04-08T11:00:00Z\",\n  \"test\": {\n      \"code\": \"LIP\",\n      \"description\": \"Lipid Panel\",\n      \"priority\": \"routine\"\n   },\n  \"clinicalInfo\": \"Routine check-up for cardiovascular risk assessment.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}:{{port}}/his/api/order",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"his",
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Order Blood Count",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n  \"msgId\": \"SSJ-20250408-003\",\n  \"orderId\": \"ORD-20250408-003\",\n  \"patient\": {\n    \"mrn\": \"PAT-54321\",\n    \"name\": \"Michael Johnson\",\n    \"birthDate\": \"1990-03-10\",\n    \"gender\": \"male\"\n  },\n  \"practitioner\": {\n    \"identifier\": \"DR-67890\",\n    \"name\": \"Dr. Emily Davis\"\n  },\n  \"orderDateTime\": \"2025-04-08T11:15:00Z\",\n  \"test\": {\n      \"code\": \"CBC\",\n      \"description\": \"Complete Blood Count\",\n      \"priority\": \"urgent\"\n   },\n  \"clinicalInfo\": \"Patient reports fatigue and pale skin.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{server}}:{{port}}/his/api/order",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"his",
+								"api",
+								"order"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FHIR Repository",
 			"item": [
 				{
 					"name": "metadata",
@@ -24,6 +119,26 @@
 							"path": [
 								"{{fhirendpoint}}",
 								"metadata"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient",
+							"protocol": "http",
+							"host": [
+								"{{server}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"{{fhirendpoint}}",
+								"Patient"
 							]
 						}
 					},
@@ -60,7 +175,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patient/1",
+					"name": "Patient/1",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -87,8 +202,8 @@
 						"header": [
 							{
 								"key": "Content-Type",
-								"type": "text",
-								"value": "application/fhir+json"
+								"value": "application/fhir+json",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -112,7 +227,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patient/1/_history/1",
+					"name": "Version Patient/1/_history/1",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -133,27 +248,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patients",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Patient"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Patients (gender)",
+					"name": "Search Patients (gender)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -179,7 +274,7 @@
 					"response": []
 				},
 				{
-					"name": "get Patients (name)",
+					"name": "Search Patients (name)",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -203,40 +298,9 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "FHIR Repo. Queries",
-			"item": [
-				{
-					"name": "get Patient. gender Female",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient?gender=female",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Patient"
-							],
-							"query": [
-								{
-									"key": "gender",
-									"value": "female"
-								}
-							]
-						}
-					},
-					"response": []
 				},
 				{
-					"name": "get Observation. Potassium paginated",
+					"name": "Search Observation. Potassium paginated",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -273,7 +337,7 @@
 					"response": []
 				},
 				{
-					"name": "get Observation. Potassium < 4",
+					"name": "Search Observation. Potassium < 4",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -303,61 +367,7 @@
 					"response": []
 				},
 				{
-					"name": "get Observation. Glucose",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Observation?code=http://loinc.org|2339-0",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Observation"
-							],
-							"query": [
-								{
-									"key": "code",
-									"value": "http://loinc.org|2339-0"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Patient/p/Observation. Final",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient/2/Observation?status=final",
-							"protocol": "http",
-							"host": [
-								"{{server}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"{{fhirendpoint}}",
-								"Patient",
-								"2",
-								"Observation"
-							],
-							"query": [
-								{
-									"key": "status",
-									"value": "final"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get Patient/p/$everything",
+					"name": "Patient $everything (XML)",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -368,7 +378,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient/2/$everything",
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient/10/$everything",
 							"protocol": "http",
 							"host": [
 								"{{server}}"
@@ -377,7 +387,7 @@
 							"path": [
 								"{{fhirendpoint}}",
 								"Patient",
-								"2",
+								"10",
 								"$everything"
 							]
 						}
@@ -385,7 +395,7 @@
 					"response": []
 				},
 				{
-					"name": "get Observation Weight > 80 Kg since d",
+					"name": "Search Observation Weight > 80 Kg since d",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -419,7 +429,7 @@
 					"response": []
 				},
 				{
-					"name": "get Encounter. Bronchitis Amb since d",
+					"name": "Search Encounter. Bronchitis Amb since d",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -451,58 +461,67 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Interop",
-			"item": [
+				},
 				{
-					"name": "metadata",
+					"name": "Search MedicationRequest (Join)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{server}}:{{port}}/myendpoint/r4/metadata",
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/MedicationRequest?code:text=Loratadine&_include=MedicationRequest:requester",
 							"protocol": "http",
 							"host": [
 								"{{server}}"
 							],
 							"port": "{{port}}",
 							"path": [
-								"myendpoint",
-								"r4",
-								"metadata"
+								"{{fhirendpoint}}",
+								"MedicationRequest"
+							],
+							"query": [
+								{
+									"key": "code:text",
+									"value": "Loratadine"
+								},
+								{
+									"key": "_include",
+									"value": "MedicationRequest:requester"
+								},
+								{
+									"key": "_revinclude",
+									"value": null,
+									"disabled": true
+								}
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Get Observation",
+					"name": "Search Patient (has)",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://{{server}}:{{port}}/myendpoint/r4/Observation?code=http://loinc.org|6298-4&_count=10",
+							"raw": "http://{{server}}:{{port}}/{{fhirendpoint}}/Patient?_has:Observation:patient:code=8302-2",
 							"protocol": "http",
 							"host": [
 								"{{server}}"
 							],
 							"port": "{{port}}",
 							"path": [
-								"myendpoint",
-								"r4",
-								"Observation"
+								"{{fhirendpoint}}",
+								"Patient"
 							],
 							"query": [
 								{
-									"key": "code",
-									"value": "http://loinc.org|6298-4"
+									"key": "_revinclude",
+									"value": null,
+									"disabled": true
 								},
 								{
-									"key": "_count",
-									"value": "10"
+									"key": "_has:Observation:patient:code",
+									"value": "8302-2"
 								}
 							]
 						}
