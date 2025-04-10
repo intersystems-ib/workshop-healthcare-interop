@@ -40,7 +40,6 @@ Open the `workshop-healthcare-interop` folder in **VS Code** to explore the sour
 
 <img src="./img/hl7-create-order.png" width="900px" />
 
-**Flow Summary**:  
 >A Hospital Information System (HIS) sends a REST request to IRIS → IRIS validates the test code via an external SQL catalog → IRIS transforms the message into HL7 (ORM^O01) → Sends it to the Laboratory.
 
 #### 🔍 Explore the Production
@@ -118,6 +117,11 @@ Then:
 ---
 
 ### 📥 Step 2: LAB Sends Back Results
+
+<img src="./img/hl7-send-result.png" width="900px" />
+
+>The Laboratory sends the results back to IRIS using HL7 → IRIS processes the results and transforms the HL7 to a SOAP request that can be processed by the Hospital Information System (HIS) → Sends it to the Hospital.
+
 
 #### 🔁 Simulate ORU^R01 Messages
 
