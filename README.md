@@ -62,7 +62,7 @@ Explore:
 If you are interested in having a look at the the catalog DB directly:
 
 ```bash
-docker exec -it mysql bash
+docker exec -it mysqlh bash
 mysql --host=localhost --user=testuser testdb -p  # Password: testpassword
 ```
 
