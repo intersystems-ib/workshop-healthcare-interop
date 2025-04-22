@@ -47,6 +47,11 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="SOAPCredentials">HISWS_User</Setting>
     <Setting Target="Adapter" Name="WebServiceURL">http://localhost:52773/csp/user/Demo.HIS.ResultSoapService.cls</Setting>
   </Item>
+  <Item Name="Ens.Alert" Category="" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">Demo.Alert.Rule.AlertRouter</Setting>
+  </Item>
+  <Item Name="Alert Email Out" Category="Alert" ClassName="EnsLib.EMail.AlertOperation" PoolSize="1" Enabled="false" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  </Item>
 </Production>
 }
 
