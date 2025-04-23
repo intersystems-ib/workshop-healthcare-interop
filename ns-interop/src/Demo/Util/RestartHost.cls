@@ -3,7 +3,7 @@
 /// Pay special attention to:
 /// -UpdateProductionTimeOut
 /// -CallInterval
-Class Util.RestartHost Extends Ens.BusinessService
+Class Demo.Util.RestartHost Extends Ens.BusinessService
 {
 
 Parameter ADAPTER = "Ens.InboundAdapter";

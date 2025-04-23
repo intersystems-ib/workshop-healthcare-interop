@@ -4,14 +4,48 @@
 /// Setup:
 /// 1. Create a webapplication (e.g. /downloadmsg) and set DispatchClass=Util.DownloadMsg
 /// 2. Go to http://localhost:52773/downloadmsg/ns/user/msgid/19 to download the message reference by header 19
-Class Util.DownloadMsg Extends %CSP.REST
+Class Demo.Util.DownloadMsg Extends %CSP.REST
 {
 
 XData UrlMap [ XMLNamespace = "http://www.intersystems.com/urlmap" ]
 {
 <Routes>
     <Route Url="/ns/:ns/msgid/:msgId" Method="GET" Call="DownloadMessage"/>
+    <Route Url="/ns/:ns/hl7xml/:id" Method="GET" Call="ViewHL7XML"/>
 </Routes>
+}
+
+/// Download a message given a Ens.MessageHeader id
+ClassMethod ViewHL7XML(ns As %String, id As %String = "") As %Status
+{
+    set ret = $$$OK
+    set currentNs = $namespace
+
+    try {
+        set $namespace = ns
+        
+        set hl7 = ##class(EnsLib.HL7.Message).%OpenId(id,,.tSC)
+        $$$ThrowOnError(tSC)
+        set stream = ##class(ITB.HL7.Util.Convert).ER7ToXML(hl7,.tSC)
+        $$$ThrowOnError(tSC)
+
+
+
+        // set headers to download stream as filename
+        do %response.SetHeader("Content-Type", "application/xml")
+        do %response.SetHeader("Content-Disposition", "inline")
+        do %response.SetHeader("Content-Length", stream.Size)
+        do stream.Rewind()
+        do stream.OutputToDevice()
+
+    } catch ex {
+        set ret = ex.AsStatus()
+    }
+
+    // restore namespace
+    set $namespace = currentNs
+
+    quit ret
 }
 
 /// Download a message given a Ens.MessageHeader id

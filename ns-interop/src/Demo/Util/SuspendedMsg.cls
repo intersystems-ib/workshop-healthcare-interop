@@ -1,6 +1,6 @@
 Include EnsConstants
 
-Class Util.SuspendedMsg Extends %RegisteredObject
+Class Demo.Util.SuspendedMsg Extends %RegisteredObject
 {
 
 /// Discard all suspended messages

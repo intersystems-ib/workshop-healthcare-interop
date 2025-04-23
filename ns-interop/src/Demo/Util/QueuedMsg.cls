@@ -1,4 +1,4 @@
-Class Util.QueuedMsg
+Class Demo.Util.QueuedMsg
 {
 
 /// Export queued messages to file
