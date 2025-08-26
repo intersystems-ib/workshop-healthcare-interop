@@ -55,10 +55,8 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
  Set context.patientRequest.Request.RequestPath = "Patient"
  Set context.patientRequest.Request.QueryString = "identifier="_context.patientMRN
  Set context.patientRequest.Request.RequestFormatCode= "JSON"
- Set context.patientRequest.Request.SessionApplication = "/csp/healthshare/fhirrepo/fhir/r4"
- Set context.patientRequest.Request.IsRecursive = 0
- Set qs=##class(HS.SDA3.QuickStream).%New()
- Set context.patientRequest.QuickStreamId = qs.%Id()]]>
+ Set context.patientRequest.Request.SessionApplication = "/csp/healthshare/fhirrepo/fhir/r5"
+ Set context.patientRequest.Request.IsRecursive = 0]]>
 </code>
 <call name='Consulta a repositorio' target='FHIRServer Operation' async='0' xpos='200' ypos='550' >
 <request type='HS.FHIRServer.Interop.Request' >
@@ -95,7 +93,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <![CDATA[ Set context.patientRequest.Request.RequestMethod = "PUT"
  Set context.patientRequest.Request.RequestPath = "Patient/"_context.patientId
  Set context.patientRequest.Request.RequestFormatCode= "JSON"
- Set context.patientRequest.Request.SessionApplication = "/csp/healthshare/fhirrepo/fhir/r4"
+ Set context.patientRequest.Request.SessionApplication = "/csp/healthshare/fhirrepo/fhir/r5"
  Set context.patientRequest.Request.IsRecursive = 0]]>
 </code>
 </true>
@@ -105,7 +103,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <![CDATA[ Set context.patientRequest.Request.RequestMethod = "POST"
  Set context.patientRequest.Request.RequestPath = "Patient"
  Set context.patientRequest.Request.RequestFormatCode= "JSON"
- Set context.patientRequest.Request.SessionApplication = "/csp/healthshare/fhirrepo/fhir/r4"
+ Set context.patientRequest.Request.SessionApplication = "/csp/healthshare/fhirrepo/fhir/r5"
  Set context.patientRequest.Request.IsRecursive = 0]]>
 </code>
 </false>
