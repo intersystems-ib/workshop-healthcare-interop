@@ -34,6 +34,45 @@ docker compose up -d
 
 Open the `workshop-healthcare-interop` folder in **VS Code** to explore the source.
 
+### ✅ Quick Start
+
+After `docker compose up -d`, use these entrypoints to verify the workshop is ready:
+
+1. Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp) and log in with `superuser` / `SYS`
+2. Send a sample HIS order from [http/his-orders.http](./http/his-orders.http)
+3. Configure the FHIR server as described below, then run [http/fhir-repository.http](./http/fhir-repository.http)
+4. Optionally open [JupyterLab](http://localhost:8888/lab/tree/IRISPython.ipynb)
+
+What is automatic after `docker compose up -d`:
+
+- IRIS, MySQL, and Jupyter containers are started
+- Source code is mounted into the IRIS container
+
+What is still manual:
+
+- creating the FHIR server in the `FHIRREPO` namespace
+- loading the sample FHIR resources
+- exploring or starting the workshop scenarios from VS Code or the Management Portal
+
+### 🗺️ Repo Map
+
+- [http/](./http/) contains runnable VS Code REST Client requests for the workshop scenarios
+- [ns-interop/](./ns-interop/) contains the interoperability classes for the HIS to LAB order and result flow
+- [ns-fhirrepo/](./ns-fhirrepo/) contains FHIR repository and FHIR interoperability production code
+- [ns-user/](./ns-user/) contains user namespace classes, including SOAP-related artifacts used in the workshop
+- [install/](./install/) contains install-time assets such as roles, web app definitions, HL7 resources, sample FHIR data, and helper config files
+- [test/](./test/) contains HL7 sample messages and input/output folders used to simulate inbound lab results
+- [jupyter/](./jupyter/) contains the notebook environment used for FHIR SQL Builder exploration
+- [mysql/](./mysql/) contains the sample external database used for test catalog validation
+- [local/LOCAL.md](./local/LOCAL.md) documents a local customization used to expose an HL7 XML view in the portal
+
+### 🔎 Validation Checklist
+
+- [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp) is reachable
+- `POST /his/api/order` works via [http/his-orders.http](./http/his-orders.http)
+- `GET /csp/healthshare/fhirrepo/fhir/r4/metadata` works via [http/fhir-repository.http](./http/fhir-repository.http) after FHIR setup
+- [JupyterLab](http://localhost:8888/lab/tree/IRISPython.ipynb) is reachable
+
 ---
 
 ## 💡 Scenario 1: HIS Orders & Lab Results
@@ -232,3 +271,13 @@ Test it using the provided [Jupyter Notebook](http://localhost:8888/lab/tree/IRI
 ## 🙌 You're Ready!
 
 Explore, break things, build your own flows — and don’t forget to have fun learning how **InterSystems IRIS for Health** helps solve real-world interoperability challenges!
+
+---
+
+## 🧭 Glossary
+
+- **Namespace**: an IRIS logical environment with its own code and data context
+- **Production**: an interoperability configuration that wires services, processes, and operations together
+- **Business Service / Process / Operation**: the inbound, orchestration, and outbound building blocks in an interoperability production
+- **BPL**: Business Process Language, the graphical orchestration used for process flows
+- **DTL**: Data Transformation Language, the graphical mapper used to transform payloads between formats
