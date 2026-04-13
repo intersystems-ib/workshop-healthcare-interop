@@ -1,0 +1,84 @@
+# HIS Order requests
+# Run these with the VS Code REST Client extension.
+
+@server = localhost
+@port = 52773
+@baseUrl = http://{{server}}:{{port}}
+
+### Order Blood Glucose
+POST {{baseUrl}}/his/api/order
+Content-Type: application/json
+
+{
+  "msgId": "DDJ-20250408-001",
+  "orderId": "ORD-20250408-001",
+  "patient": {
+    "mrn": "PAT-12345",
+    "name": "Juan Perez",
+    "birthDate": "1980-05-15",
+    "gender": "male"
+  },
+  "practitioner": {
+    "identifier": "DR-98765",
+    "name": "Dr. Maria Gomez"
+  },
+  "orderDateTime": "2025-04-08T10:30:00Z",
+  "test": {
+    "code": "GLU",
+    "description": "Blood glucose test",
+    "priority": "routine"
+  },
+  "clinicalInfo": "Patient with dizziness and history of diabetes."
+}
+
+### Order Lipid Panel
+POST {{baseUrl}}/his/api/order
+Content-Type: application/json
+
+{
+  "msgId": "XDF-20250408-002",
+  "orderId": "ORD-20250408-002",
+  "patient": {
+    "mrn": "PAT-67890",
+    "name": "Laura Smith",
+    "birthDate": "1975-11-22",
+    "gender": "female"
+  },
+  "practitioner": {
+    "identifier": "DR-12345",
+    "name": "Dr. John Miller"
+  },
+  "orderDateTime": "2025-04-08T11:00:00Z",
+  "test": {
+    "code": "LIP",
+    "description": "Lipid Panel",
+    "priority": "routine"
+  },
+  "clinicalInfo": "Routine check-up for cardiovascular risk assessment."
+}
+
+### Order Blood Count
+POST {{baseUrl}}/his/api/order
+Content-Type: application/json
+
+{
+  "msgId": "SSJ-20250408-003",
+  "orderId": "ORD-20250408-003",
+  "patient": {
+    "mrn": "PAT-54321",
+    "name": "Michael Johnson",
+    "birthDate": "1990-03-10",
+    "gender": "male"
+  },
+  "practitioner": {
+    "identifier": "DR-67890",
+    "name": "Dr. Emily Davis"
+  },
+  "orderDateTime": "2025-04-08T11:15:00Z",
+  "test": {
+    "code": "CBC",
+    "description": "Complete Blood Count",
+    "priority": "urgent"
+  },
+  "clinicalInfo": "Patient reports fatigue and pale skin."
+}

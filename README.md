@@ -15,7 +15,9 @@ Before you begin, make sure you have the following tools installed:
 
 - [Git](https://git-scm.com/downloads)  
 - [Docker & Docker Compose](https://docs.docker.com/compose/install/)  - ⚠️ On **Windows**, Docker must be set to use **Linux containers**  
-- [Visual Studio Code](https://code.visualstudio.com/download) with the [InterSystems ObjectScript Extension Pack](https://marketplace.visualstudio.com/items?itemName=intersystems-community.objectscript-pack)
+- [Visual Studio Code](https://code.visualstudio.com/download) with:
+  - the [InterSystems ObjectScript Extension Pack](https://marketplace.visualstudio.com/items?itemName=intersystems-community.objectscript-pack)
+  - the [REST Client extension](https://marketplace.visualstudio.com/items?itemName=humao.rest-client)
 
 ---
 
@@ -72,7 +74,7 @@ SELECT * FROM TestCatalog;
 
 #### 📤 Send an Order from HIS
 
-Use Postman ([collection](workshop-healthcare-interop.postman_collection.json) provided) or `curl` to create a new order from HIS:
+Use the VS Code HTTP requests in [http/his-orders.http](./http/his-orders.http) or `curl` to create a new order from HIS:
 
 ```bash
 curl -X POST http://localhost:52773/his/api/order \
@@ -165,7 +167,7 @@ set sc = ##class(HS.FHIRServer.Tools.DataLoader).SubmitResourceFiles("/app/insta
 
 ### 🔗 Interact via API
 
-Use Postman ([collection](./workshop-healthcare-interop.postman_collection.json) included): 
+Use the VS Code HTTP requests in [http/fhir-repository.http](./http/fhir-repository.http): 
 <img src="img/postman-fhir.png" width="900px"/>
 
 or run this ObjectScript snippet to leverage pre-built clients:
