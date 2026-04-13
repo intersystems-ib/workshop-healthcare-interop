@@ -13,9 +13,9 @@ services:
     - "1972:1972"
     volumes:
     - .:/app
-    #- ./irisdata:/irisdata
-    #environment:
-    #- ISC_DATA_DIRECTORY=/irisdata
+    - ./irisdata:/irisdata
+    environment:
+    - ISC_DATA_DIRECTORY=/irisdata
 
   # Sample external database to integrate from InterSystems IRIS interoperability framework  
   mysql:
@@ -44,20 +44,3 @@ services:
     volumes: 
       - ./jupyter/notebooks:/home/jovyan/
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
-
-  kafka:
-    image: apache/kafka:4.1.0-rc2
-    container_name: kafka
-    ports:
-      - "9092:9092"
-    volumes:
-      - ./kafka/server.properties:/opt/kafka/config/server.properties
-    environment:
-      CLUSTER_ID: my-cluster-id
-    entrypoint: >
-      sh -c "
-        if [ ! -f /tmp/kraft-combined-logs/meta.properties ]; then
-          /opt/kafka/bin/kafka-storage.sh format -t $$CLUSTER_ID -c /opt/kafka/config/server.properties
-        fi &&
-        /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
-        "
