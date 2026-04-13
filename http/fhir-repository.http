@@ -11,14 +11,18 @@
 
 ### metadata
 GET {{fhirBaseUrl}}/metadata
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
+
 
 ### Patients
 GET {{fhirBaseUrl}}/Patient
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### create Patient
 POST {{fhirBaseUrl}}/Patient
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 Content-Type: application/fhir+json
 
@@ -66,10 +70,12 @@ Content-Type: application/fhir+json
 
 ### Patient/1
 GET {{fhirBaseUrl}}/Patient/1
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### modify Patient/1
 PUT {{fhirBaseUrl}}/Patient/1
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 Content-Type: application/fhir+json
 
@@ -109,22 +115,27 @@ Content-Type: application/fhir+json
 
 ### Version Patient/1/_history/1
 GET {{fhirBaseUrl}}/Patient/1/_history/1
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search Patients (gender)
 GET {{fhirBaseUrl}}/Patient?gender=male
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search Patients (name)
 GET {{fhirBaseUrl}}/Patient?name:contains=augustine
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search Observation. Potassium paginated
 GET {{fhirBaseUrl}}/Observation?code=http://loinc.org|6298-4&_count=10
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search Observation. Potassium < 4
 GET {{fhirBaseUrl}}/Observation?code=http://loinc.org|6298-4&value-quantity=lt4.0|http://unitsofmeasure.org|mmol/L
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Patient $everything (XML)
@@ -134,16 +145,20 @@ Accept: application/fhir+xml
 
 ### Search Observation Weight > 80 Kg since 2019-10-01
 GET {{fhirBaseUrl}}/Observation?code=http://loinc.org|29463-7&value-quantity=gt80.0|http://unitsofmeasure.org|kg&date=ge2019-10-01
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search Encounter. Bronchitis Amb since 2018-01-01
 GET {{fhirBaseUrl}}/Encounter?reason-code=http://snomed.info/sct|10509002&class=http://terminology.hl7.org/CodeSystem/v3-ActCode|AMB&date=ge2018-01-01
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search MedicationRequest (Join)
 GET {{fhirBaseUrl}}/MedicationRequest?code:text=Loratadine&_include=MedicationRequest:requester
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
 
 ### Search Patient (has)
 GET {{fhirBaseUrl}}/Patient?_has:Observation:patient:code=8302-2
+Accept: application/fhir+json
 Authorization: Basic {{username}}:{{password}}
