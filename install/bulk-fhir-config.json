@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "endpoint_url": "/bulkfhir/r4",
+  "name": "bulk-fhir-config",
+  "core_fhir_package": "hl7.fhir.r4.core@4.0.1",
+  "auto_start": true,
+  "fetch_adapter": "HS.BulkFHIR.Fetch.PureFHIR.Adapter",
+  "fetch_config": {
+    "endpoint_url": "http://localhost:52773/csp/healthshare/fhirrepo/fhir/r4",
+    "client_auth_adapter": "HS.BulkFHIR.ClientAuth.BasicAuth.Adapter",
+    "client_auth_config": {
+      "ssl_configuration": "BFC_SSL",
+      "http_credential_id": "FHIRRepoBasic"
+    },
+    "patient_export": true,
+    "group_export": true,
+    "system_export": true,
+    "max_req_per_sec": 10,
+    "http_timeout": 180,
+    "fetch_count": 500,
+    "use_count_param_in_everything_op": true,
+    "worker_jobs": 4,
+    "working_directory": "/irisdata/mgr/Temp/BulkFHIR/FHIRREPO/",
+    "flush_interval_mins": 60,
+    "temp_max_file_size": 1000
+  },
+  "auth_adapter": "HS.BulkFHIR.Auth.BasicAuth.Adapter",
+  "auth_config": {},
+  "storage_adapter": "HS.BulkFHIR.Storage.File.Adapter",
+  "storage_config": {
+    "file_url": "/bulkfhir/file",
+    "directory": "/irisdata/bulkfhir/fhirrepo/",
+    "max_file_size": 1000,
+    "expire_after_mins": 1440
+  },
+  "is_inactive": false
+}

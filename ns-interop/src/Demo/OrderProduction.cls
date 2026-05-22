@@ -19,6 +19,7 @@ XData ProductionDefinition
   </Item>
   <Item Name="JavaGateway" Category="" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="ClassPath">/app/install/mysql-connector-j-8.4.0.jar</Setting>
+    <Setting Target="Host" Name="%gatewayName">%Java Server</Setting>
   </Item>
   <Item Name="LAB Catalog SQL" Category="Order" ClassName="EnsLib.SQL.Operation.GenericOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Adapter" Name="Credentials">MySQL_User</Setting>
@@ -30,6 +31,7 @@ XData ProductionDefinition
     <Setting Target="Host" Name="Query">select Code,Name,Description,IsActive from TestCatalog where code = ?</Setting>
     <Setting Target="Host" Name="ParamSQLTypes">VARCHAR,VARCHAR,TEXT,BOOLEAN</Setting>
     <Setting Target="Host" Name="ResponseClass">Demo.LAB.Msg.CheckTestCatalogRsp</Setting>
+    <Setting Target="Adapter" Name="JDBCClasspath">/app/install/mysql-connector-j-8.4.0.jar</Setting>
   </Item>
   <Item Name="LAB HL7 File In" Category="Result" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.5</Setting>
