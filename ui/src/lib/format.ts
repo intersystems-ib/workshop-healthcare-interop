@@ -109,6 +109,48 @@ export function getPatientTelecom(patient: PatientResource): string {
   return telecom.use ? `${telecom.value} (${telecom.use})` : telecom.value;
 }
 
+export function getPatientMaritalStatus(patient: PatientResource): string {
+  return patient.maritalStatus?.text ?? patient.maritalStatus?.coding?.[0]?.display ?? "Not recorded";
+}
+
+export function getPatientLanguage(patient: PatientResource): string {
+  const language = patient.communication?.[0]?.language;
+  return language?.text ?? language?.coding?.[0]?.display ?? "Not recorded";
+}
+
+export function getPatientBirthSex(patient: PatientResource): string {
+  const birthSex = patient.extension?.find(
+    (extension) => extension.url === "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex"
+  )?.valueCode;
+
+  if (!birthSex) {
+    return "Not recorded";
+  }
+
+  if (birthSex === "M") {
+    return "Male";
+  }
+
+  if (birthSex === "F") {
+    return "Female";
+  }
+
+  return birthSex;
+}
+
+export function getPatientEthnicityOrRace(patient: PatientResource, kind: "race" | "ethnicity"): string {
+  const targetUrl =
+    kind === "race"
+      ? "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race"
+      : "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity";
+
+  const extension = patient.extension?.find((item) => item.url === targetUrl);
+  const textEntry = extension?.extension?.find((item) => item.url === "text")?.valueString;
+  const codedDisplay = extension?.extension?.find((item) => item.url === "ombCategory")?.valueCoding?.display;
+
+  return textEntry ?? codedDisplay ?? "Not recorded";
+}
+
 export function getCodeText(resource: FhirResource): string {
   const code = (resource.code ?? resource.type ?? resource.vaccineCode) as
     | {

@@ -26,6 +26,29 @@ export type PatientResource = FhirResource & {
   name?: HumanName[];
   gender?: string;
   birthDate?: string;
+  maritalStatus?: {
+    text?: string;
+    coding?: Array<{ code?: string; display?: string }>;
+  };
+  communication?: Array<{
+    language?: {
+      text?: string;
+      coding?: Array<{ code?: string; display?: string }>;
+    };
+  }>;
+  extension?: Array<{
+    url?: string;
+    valueCode?: string;
+    valueString?: string;
+    extension?: Array<{
+      url?: string;
+      valueString?: string;
+      valueCoding?: {
+        display?: string;
+        code?: string;
+      };
+    }>;
+  }>;
   identifier?: Array<{
     system?: string;
     value?: string;

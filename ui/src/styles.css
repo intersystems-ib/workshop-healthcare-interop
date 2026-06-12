@@ -346,6 +346,128 @@ select {
   font-weight: 700;
 }
 
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(195, 79, 40, 0.08);
+  color: var(--accent-strong);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.demographics-card,
+.footprint-card {
+  align-content: start;
+}
+
+.demographics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px 20px;
+}
+
+.demographics-item {
+  display: grid;
+  gap: 6px;
+}
+
+.demographics-item-wide {
+  grid-column: 1 / -1;
+}
+
+.demographics-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.demographics-value {
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+
+.footprint-summary {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+}
+
+.footprint-total {
+  display: grid;
+  gap: 3px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: rgba(35, 119, 146, 0.08);
+}
+
+.footprint-total-value {
+  color: var(--secondary);
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.footprint-total-label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.footprint-copy {
+  margin: 0;
+}
+
+.footprint-list {
+  display: grid;
+  gap: 12px;
+}
+
+.footprint-row {
+  display: grid;
+  gap: 8px;
+}
+
+.footprint-row-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+
+.footprint-name {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.footprint-count {
+  color: var(--secondary);
+  font-weight: 800;
+}
+
+.footprint-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(23, 32, 51, 0.08);
+  overflow: hidden;
+}
+
+.footprint-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(35, 119, 146, 0.5), rgba(35, 119, 146, 0.95));
+}
+
 .patient-card-top {
   gap: 0;
 }
@@ -369,6 +491,102 @@ select {
 
 .patient-card-actions {
   justify-content: flex-start;
+}
+
+.timeline-list {
+  display: grid;
+  gap: 0;
+}
+
+.timeline-filters {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 240px));
+  gap: 14px;
+  margin: 20px 0 10px;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 14px;
+  padding: 18px 0;
+  border-top: 1px solid rgba(23, 32, 51, 0.08);
+}
+
+.timeline-item:first-child {
+  border-top: 0;
+  padding-top: 4px;
+}
+
+.timeline-rail {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.timeline-rail::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: -18px;
+  width: 1px;
+  background: rgba(23, 32, 51, 0.12);
+}
+
+.timeline-item:last-child .timeline-rail::after {
+  display: none;
+}
+
+.timeline-dot {
+  width: 11px;
+  height: 11px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #c34f28 0%, #9e3f1f 100%);
+  box-shadow: 0 0 0 4px rgba(195, 79, 40, 0.12);
+}
+
+.timeline-content,
+.timeline-meta,
+.timeline-heading {
+  display: grid;
+  gap: 8px;
+}
+
+.timeline-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.timeline-type {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  border-radius: 999px;
+  padding: 5px 10px;
+  background: rgba(35, 119, 146, 0.08);
+  color: var(--secondary);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.timeline-title {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.timeline-date {
+  color: var(--muted);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.timeline-meta {
+  gap: 6px;
 }
 
 .section-title {
@@ -418,13 +636,20 @@ select {
 
   .login-grid,
   .workspace-grid,
+  .timeline-filters,
+  .demographics-grid,
   .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .footprint-summary {
     grid-template-columns: 1fr;
   }
 
   .hero-heading,
   .shell-header,
   .card-top,
+  .timeline-top,
   .workspace-section-header,
   .workspace-section-heading {
     flex-direction: column;
