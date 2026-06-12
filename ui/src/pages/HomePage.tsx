@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { searchPatients } from "../lib/fhir";
-import { formatDate, getHumanName, getPatientMrn } from "../lib/format";
+import { formatDate, getHumanName, getPatientAge, getPatientAgeGroup } from "../lib/format";
 import { useAuth } from "../state/AuthContext";
 
 export function HomePage() {
@@ -69,26 +69,35 @@ export function HomePage() {
           {patientsQuery.isLoading ? <p className="section-copy">Loading patients...</p> : null}
 
           <div className="home-grid grid">
-            {(patientsQuery.data ?? []).map((patient) => (
-              <article className="card" key={patient.id}>
-                <div className="card-top">
-                  <div>
-                    <span className="pill">{patient.gender ?? "unknown"}</span>
-                    <h3>{getHumanName(patient.name)}</h3>
+            {(patientsQuery.data ?? []).map((patient) => {
+              const age = getPatientAge(patient.birthDate);
+              const ageGroup = getPatientAgeGroup(age);
+              const ageLabel = age === null ? "age unknown" : `${ageGroup} ${age}y`;
+
+              return (
+                <article className="card patient-card" key={patient.id}>
+                  <div className="card-top patient-card-top">
+                    <div className="patient-card-heading">
+                      <h3>{getHumanName(patient.name)}</h3>
+                      <div className="patient-card-badges">
+                        <span className="patient-label-chip">{patient.gender ?? "unknown"}</span>
+                        <span className="patient-label-chip patient-label-chip-muted">{ageLabel}</span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="meta-item">MRN {getPatientMrn(patient)}</span>
-                </div>
-                <div className="card-meta">
-                  <span className="meta-item">Birth date: {formatDate(patient.birthDate)}</span>
-                  <span className="meta-item">FHIR id: {patient.id}</span>
-                </div>
-                <div className="button-row">
-                  <Link className="button button-primary" to={`/patients/${patient.id}`}>
-                    Open record
-                  </Link>
-                </div>
-              </article>
-            ))}
+                  <div className="card-meta patient-card-meta">
+                    <span className="meta-item">Birth date: {formatDate(patient.birthDate)}</span>
+                    <span className="meta-item">FHIR id: {patient.id}</span>
+                  </div>
+                  <div className="button-row patient-card-actions">
+                    <Link className="button button-secondary patient-link" to={`/patients/${patient.id}`}>
+                      <RecordArrowIcon />
+                      <span>View record</span>
+                    </Link>
+                  </div>
+                </article>
+              );
+            })}
           </div>
 
           {!patientsQuery.isLoading && (patientsQuery.data?.length ?? 0) === 0 ? (
@@ -100,5 +109,14 @@ export function HomePage() {
         </div>
       </section>
     </main>
+  );
+}
+
+function RecordArrowIcon() {
+  return (
+    <svg className="patient-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <path d="M5 12h12" />
+      <path d="M13 7l5 5-5 5" />
+    </svg>
   );
 }

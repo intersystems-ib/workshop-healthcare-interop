@@ -45,6 +45,42 @@ export function formatDateTime(value?: string): string {
   }).format(parsed);
 }
 
+export function getPatientAge(birthDate?: string): number | null {
+  if (!birthDate) {
+    return null;
+  }
+
+  const parsed = new Date(birthDate);
+  if (Number.isNaN(parsed.getTime())) {
+    return null;
+  }
+
+  const now = new Date();
+  let age = now.getFullYear() - parsed.getFullYear();
+  const monthDelta = now.getMonth() - parsed.getMonth();
+  if (monthDelta < 0 || (monthDelta === 0 && now.getDate() < parsed.getDate())) {
+    age -= 1;
+  }
+
+  return age >= 0 ? age : null;
+}
+
+export function getPatientAgeGroup(age: number | null): "young" | "adult" | "elder" | "unknown" {
+  if (age === null) {
+    return "unknown";
+  }
+
+  if (age < 18) {
+    return "young";
+  }
+
+  if (age < 65) {
+    return "adult";
+  }
+
+  return "elder";
+}
+
 export function getPatientMrn(patient: PatientResource): string {
   const preferred = patient.identifier?.find((identifier) =>
     identifier.type?.coding?.some((coding) => coding.code === "MR")

@@ -104,6 +104,13 @@ select {
   padding: 22px;
 }
 
+.patient-card {
+  gap: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 250, 252, 0.88)),
+    var(--panel);
+}
+
 .hero-heading,
 .shell-header,
 .card-top,
@@ -137,6 +144,24 @@ select {
   padding: 7px 11px;
   background: rgba(35, 119, 146, 0.12);
   color: var(--secondary);
+}
+
+.patient-label-chip {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  padding: 6px 10px;
+  background: rgba(35, 119, 146, 0.1);
+  color: var(--secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0;
+}
+
+.patient-label-chip-muted {
+  background: rgba(23, 32, 51, 0.06);
+  color: var(--muted);
 }
 
 .workspace-section-step {
@@ -273,6 +298,17 @@ select {
   color: var(--text);
 }
 
+.patient-link {
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.patient-link-icon {
+  width: 16px;
+  height: 16px;
+}
+
 .release-meta {
   display: grid;
   gap: 4px;
@@ -308,6 +344,31 @@ select {
   color: var(--secondary);
   font-size: 0.84rem;
   font-weight: 700;
+}
+
+.patient-card-top {
+  gap: 0;
+}
+
+.patient-card-heading {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  width: 100%;
+}
+
+.patient-card-badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.patient-card-meta {
+  gap: 8px;
+}
+
+.patient-card-actions {
+  justify-content: flex-start;
 }
 
 .section-title {
@@ -373,5 +434,9 @@ select {
   .shell-actions {
     width: 100%;
     justify-content: space-between;
+  }
+
+  .patient-card-heading {
+    width: 100%;
   }
 }
