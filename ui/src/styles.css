@@ -5,9 +5,9 @@
   font-weight: 400;
   color: #172033;
   background:
-    radial-gradient(circle at top left, rgba(204, 76, 32, 0.18), transparent 28%),
-    radial-gradient(circle at right 18%, rgba(35, 119, 146, 0.16), transparent 24%),
-    linear-gradient(180deg, #fffaf2 0%, #f3f6fb 46%, #eef2f6 100%);
+    radial-gradient(circle at top left, rgba(30, 136, 117, 0.16), transparent 28%),
+    radial-gradient(circle at right 18%, rgba(37, 99, 235, 0.12), transparent 24%),
+    linear-gradient(180deg, #f4fbf8 0%, #f3f8fd 46%, #eef4f8 100%);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -17,9 +17,9 @@
   --border: rgba(23, 32, 51, 0.12);
   --muted: #5d697d;
   --text: #172033;
-  --accent: #c34f28;
-  --accent-strong: #9e3f1f;
-  --secondary: #237792;
+  --accent: #198c78;
+  --accent-strong: #146c5d;
+  --secondary: #2563eb;
   --shadow: 0 24px 60px rgba(23, 32, 51, 0.12);
 }
 
@@ -136,7 +136,7 @@ select {
 
 .eyebrow {
   padding: 7px 12px;
-  background: rgba(195, 79, 40, 0.12);
+  background: rgba(25, 140, 120, 0.12);
   color: var(--accent-strong);
 }
 
@@ -151,7 +151,7 @@ select {
   align-items: center;
   border-radius: 999px;
   padding: 6px 10px;
-  background: rgba(35, 119, 146, 0.1);
+  background: rgba(37, 99, 235, 0.1);
   color: var(--secondary);
   font-size: 0.8rem;
   font-weight: 700;
@@ -168,7 +168,7 @@ select {
   min-width: 72px;
   justify-content: center;
   padding: 6px 10px;
-  background: rgba(195, 79, 40, 0.12);
+  background: rgba(25, 140, 120, 0.12);
   color: var(--accent-strong);
 }
 
@@ -250,8 +250,8 @@ select {
 
 .field input:focus,
 .select:focus {
-  outline: 2px solid rgba(195, 79, 40, 0.18);
-  border-color: rgba(195, 79, 40, 0.26);
+  outline: 2px solid rgba(25, 140, 120, 0.18);
+  border-color: rgba(25, 140, 120, 0.26);
 }
 
 .button-row,
@@ -288,7 +288,7 @@ select {
 .button-primary,
 .tab-button-active {
   border-color: transparent;
-  background: linear-gradient(135deg, #c34f28 0%, #9e3f1f 100%);
+  background: linear-gradient(135deg, #198c78 0%, #2563eb 100%);
   color: #fff;
 }
 
@@ -352,7 +352,7 @@ select {
   width: fit-content;
   border-radius: 999px;
   padding: 5px 10px;
-  background: rgba(195, 79, 40, 0.08);
+  background: rgba(25, 140, 120, 0.08);
   color: var(--accent-strong);
   font-size: 0.74rem;
   font-weight: 800;
@@ -542,8 +542,8 @@ select {
   height: 11px;
   margin-top: 8px;
   border-radius: 999px;
-  background: linear-gradient(135deg, #c34f28 0%, #9e3f1f 100%);
-  box-shadow: 0 0 0 4px rgba(195, 79, 40, 0.12);
+  background: linear-gradient(135deg, #198c78 0%, #2563eb 100%);
+  box-shadow: 0 0 0 4px rgba(25, 140, 120, 0.12);
 }
 
 .timeline-content,
