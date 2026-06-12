@@ -214,6 +214,28 @@ export function getObservationValue(resource: FhirResource): string {
   return "Recorded";
 }
 
+export function getObservationQuantity(resource: FhirResource): { value: number; unit: string } | null {
+  const quantity = resource.valueQuantity as { value?: number; unit?: string } | undefined;
+  if (typeof quantity?.value !== "number" || !quantity.unit) {
+    return null;
+  }
+
+  return {
+    value: quantity.value,
+    unit: quantity.unit
+  };
+}
+
+export function getObservationCode(resource: FhirResource): string | null {
+  const code = resource.code as
+    | {
+        coding?: Array<{ code?: string }>;
+      }
+    | undefined;
+
+  return code?.coding?.[0]?.code ?? null;
+}
+
 export function getMedicationLabel(resource: FhirResource): string {
   const medication = (resource.medicationCodeableConcept ?? resource.medicationReference) as
     | { text?: string; display?: string; coding?: Array<{ display?: string; code?: string }> }

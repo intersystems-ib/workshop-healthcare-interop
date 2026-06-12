@@ -6,6 +6,8 @@ import {
   formatDate,
   formatDateTime,
   getCodeText,
+  getObservationCode,
+  getObservationQuantity,
   getPatientAge,
   getHumanName,
   getPatientBirthSex,
@@ -41,6 +43,7 @@ export function PatientPage() {
   const { session } = useAuth();
   const [activityFilter, setActivityFilter] = useState("all");
   const [timeFilter, setTimeFilter] = useState("all");
+  const [openTrendKey, setOpenTrendKey] = useState<string | null>(null);
 
   const recordQuery = useQuery({
     queryKey: ["patient-record", patientId],
@@ -133,6 +136,7 @@ export function PatientPage() {
     const cutoff = getTimeFilterCutoff(timeFilter);
     return cutoff ? resourceDate >= cutoff : true;
   });
+  const observationTrends = buildObservationTrends(resources);
 
   return (
     <main className="workspace-layout">
@@ -287,7 +291,11 @@ export function PatientPage() {
           </div>
         </div>
         <div className="timeline-list">
-          {filteredTimelineItems.map(({ resource, index }) => (
+          {filteredTimelineItems.map(({ resource, index }) => {
+            const trend = resource.resourceType === "Observation" ? getObservationTrend(resource, observationTrends) : null;
+            const trendKey = trend ? createObservationTrendKey(resource) : null;
+
+            return (
             <article className="timeline-item" key={`${resource.resourceType}-${resource.id ?? index}`}>
               <div className="timeline-rail" aria-hidden="true">
                 <span className="timeline-dot" />
@@ -295,7 +303,19 @@ export function PatientPage() {
               <div className="timeline-content">
                 <div className="timeline-top">
                   <div className="timeline-heading">
-                    <span className="timeline-type">{resource.resourceType}</span>
+                    <div className="timeline-title-row">
+                      <span className="timeline-type">{resource.resourceType}</span>
+                      {trend && trendKey ? (
+                        <button
+                          aria-label="Toggle observation trend"
+                          className="trend-button"
+                          onClick={() => setOpenTrendKey((current) => (current === trendKey ? null : trendKey))}
+                          type="button"
+                        >
+                          <TrendIcon />
+                        </button>
+                      ) : null}
+                    </div>
                     <h4 className="timeline-title">{getCardTitle(resource)}</h4>
                   </div>
                   <span className="timeline-date">{formatDateTime(getResourceDate(resource))}</span>
@@ -307,9 +327,23 @@ export function PatientPage() {
                     </span>
                   ))}
                 </div>
+                {trend && trendKey && openTrendKey === trendKey ? (
+                  <div className="trend-panel">
+                    <div className="trend-panel-top">
+                      <span className="trend-caption">Observation trend</span>
+                      <span className="trend-caption">{trend.unit}</span>
+                    </div>
+                    <Sparkline values={trend.points.map((point) => point.value)} />
+                    <div className="trend-range">
+                      <span>{formatDate(trend.points[0]?.date)}</span>
+                      <span>{formatDate(trend.points[trend.points.length - 1]?.date)}</span>
+                    </div>
+                  </div>
+                ) : null}
               </div>
             </article>
-          ))}
+            );
+          })}
           {filteredTimelineItems.length === 0 ? (
             <div className="placeholder">
               <strong>No timeline entries match these filters.</strong>
@@ -340,6 +374,87 @@ function getTimeFilterCutoff(value: string): Date | null {
 
 function formatResourceType(value: string): string {
   return value.replace(/([a-z])([A-Z])/g, "$1 $2");
+}
+
+function createObservationTrendKey(resource: FhirResource): string | null {
+  const code = getObservationCode(resource);
+  const quantity = getObservationQuantity(resource);
+
+  if (!code || !quantity) {
+    return null;
+  }
+
+  return `${code}__${quantity.unit}`;
+}
+
+function buildObservationTrends(resources: FhirResource[]) {
+  const trends = new Map<string, { unit: string; points: Array<{ date: string; value: number }> }>();
+
+  for (const resource of resources) {
+    if (resource.resourceType !== "Observation") {
+      continue;
+    }
+
+    const key = createObservationTrendKey(resource);
+    const quantity = getObservationQuantity(resource);
+    const date = getResourceDate(resource);
+    if (!key || !quantity || !date) {
+      continue;
+    }
+
+    const current = trends.get(key) ?? { unit: quantity.unit, points: [] };
+    current.points.push({ date, value: quantity.value });
+    trends.set(key, current);
+  }
+
+  for (const trend of trends.values()) {
+    trend.points.sort((left, right) => left.date.localeCompare(right.date));
+  }
+
+  return trends;
+}
+
+function getObservationTrend(
+  resource: FhirResource,
+  trends: Map<string, { unit: string; points: Array<{ date: string; value: number }> }>
+) {
+  const key = createObservationTrendKey(resource);
+  if (!key) {
+    return null;
+  }
+
+  const trend = trends.get(key);
+  return trend && trend.points.length > 1 ? trend : null;
+}
+
+function TrendIcon() {
+  return (
+    <svg className="trend-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.9">
+      <path d="M4 16l5-5 4 3 7-7" />
+      <path d="M15 7h5v5" />
+    </svg>
+  );
+}
+
+function Sparkline({ values }: { values: number[] }) {
+  const width = 180;
+  const height = 44;
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+  const points = values
+    .map((value, index) => {
+      const x = values.length === 1 ? width / 2 : (index / (values.length - 1)) * width;
+      const y = height - ((value - min) / range) * (height - 8) - 4;
+      return `${x},${y}`;
+    })
+    .join(" ");
+
+  return (
+    <svg className="trend-sparkline" viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none">
+      <polyline fill="none" points={points} stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
 }
 
 function getCardTitle(resource: FhirResource): string {

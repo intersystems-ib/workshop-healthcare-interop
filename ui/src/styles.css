@@ -553,6 +553,13 @@ select {
   gap: 8px;
 }
 
+.timeline-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
 .timeline-top {
   display: flex;
   justify-content: space-between;
@@ -587,6 +594,66 @@ select {
 
 .timeline-meta {
   gap: 6px;
+}
+
+.trend-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 1px solid rgba(23, 32, 51, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--secondary);
+  cursor: pointer;
+}
+
+.trend-button:hover {
+  transform: translateY(-1px);
+}
+
+.trend-icon {
+  width: 15px;
+  height: 15px;
+}
+
+.trend-panel {
+  display: grid;
+  gap: 8px;
+  margin-top: 4px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(37, 99, 235, 0.05);
+  color: var(--secondary);
+}
+
+.trend-panel-top,
+.trend-range {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.trend-caption {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.trend-sparkline {
+  width: 100%;
+  height: 44px;
+  overflow: visible;
+}
+
+.trend-range {
+  color: var(--muted);
+  font-size: 0.85rem;
 }
 
 .section-title {
