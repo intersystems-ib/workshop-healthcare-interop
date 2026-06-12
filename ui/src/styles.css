@@ -1,0 +1,377 @@
+:root {
+  color-scheme: light;
+  font-family: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #172033;
+  background:
+    radial-gradient(circle at top left, rgba(204, 76, 32, 0.18), transparent 28%),
+    radial-gradient(circle at right 18%, rgba(35, 119, 146, 0.16), transparent 24%),
+    linear-gradient(180deg, #fffaf2 0%, #f3f6fb 46%, #eef2f6 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  --panel: rgba(255, 255, 255, 0.8);
+  --panel-strong: rgba(255, 255, 255, 0.94);
+  --border: rgba(23, 32, 51, 0.12);
+  --muted: #5d697d;
+  --text: #172033;
+  --accent: #c34f28;
+  --accent-strong: #9e3f1f;
+  --secondary: #237792;
+  --shadow: 0 24px 60px rgba(23, 32, 51, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 28px;
+}
+
+.page {
+  width: min(1220px, 100%);
+  margin: 0 auto;
+}
+
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+.login-grid {
+  grid-template-columns: minmax(280px, 1.25fr) minmax(320px, 0.9fr);
+  align-items: start;
+}
+
+.home-grid {
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.workspace-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.hero-panel,
+.content-panel,
+.card,
+.form-panel,
+.status-card {
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.hero-panel,
+.content-panel,
+.form-panel {
+  border-radius: 30px;
+  padding: 28px;
+}
+
+.card,
+.status-card {
+  border-radius: 24px;
+  padding: 22px;
+}
+
+.hero-heading,
+.shell-header,
+.card-top,
+.workspace-section-header,
+.workspace-section-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  align-items: start;
+}
+
+.eyebrow,
+.pill,
+.workspace-section-step {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.eyebrow {
+  padding: 7px 12px;
+  background: rgba(195, 79, 40, 0.12);
+  color: var(--accent-strong);
+}
+
+.pill {
+  padding: 7px 11px;
+  background: rgba(35, 119, 146, 0.12);
+  color: var(--secondary);
+}
+
+.workspace-section-step {
+  min-width: 72px;
+  justify-content: center;
+  padding: 6px 10px;
+  background: rgba(195, 79, 40, 0.12);
+  color: var(--accent-strong);
+}
+
+.hero-title {
+  margin: 16px 0 10px;
+  font-size: clamp(2rem, 4vw, 4.2rem);
+  line-height: 0.98;
+  max-width: 12ch;
+}
+
+.hero-copy,
+.section-copy,
+.form-copy,
+.shell-brand p,
+.shell-meta,
+.card p,
+.meta-item,
+.status-card p {
+  color: var(--muted);
+}
+
+.hero-copy,
+.section-copy {
+  max-width: 68ch;
+  margin: 0;
+}
+
+.form-title,
+.section-title,
+.workspace-section-title,
+.shell-brand h1,
+.card h3,
+.status-card h3 {
+  margin: 0;
+}
+
+.form-title {
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+}
+
+.form-copy {
+  margin: 0 0 24px;
+}
+
+.form,
+.field,
+.workspace-layout,
+.workspace-section,
+.card,
+.card-meta,
+.status-list,
+.shell-brand,
+.chip-row {
+  display: grid;
+  gap: 14px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field label {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.field input,
+.select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid rgba(23, 32, 51, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--text);
+}
+
+.field input:focus,
+.select:focus {
+  outline: 2px solid rgba(195, 79, 40, 0.18);
+  border-color: rgba(195, 79, 40, 0.26);
+}
+
+.button-row,
+.shell-actions,
+.tab-row {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.button,
+.tab-button {
+  appearance: none;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  border-radius: 999px;
+  padding: 12px 18px;
+  font-weight: 700;
+  transition: transform 140ms ease, opacity 140ms ease, background 140ms ease;
+}
+
+.button:hover,
+.tab-button:hover {
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+  transform: none;
+}
+
+.button-primary,
+.tab-button-active {
+  border-color: transparent;
+  background: linear-gradient(135deg, #c34f28 0%, #9e3f1f 100%);
+  color: #fff;
+}
+
+.button-secondary,
+.tab-button {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text);
+}
+
+.release-meta {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(35, 119, 146, 0.08);
+  border: 1px solid rgba(35, 119, 146, 0.16);
+}
+
+.release-label {
+  color: var(--secondary);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.release-value {
+  font-size: 0.98rem;
+}
+
+.chip-row {
+  grid-template-columns: repeat(auto-fit, minmax(140px, max-content));
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: 9px 12px;
+  background: rgba(35, 119, 146, 0.08);
+  color: var(--secondary);
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.section-title {
+  font-size: 1.8rem;
+}
+
+.workspace-section-title {
+  font-size: 1.2rem;
+}
+
+.error-text {
+  color: #b42318;
+  margin: 0;
+}
+
+.placeholder strong {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.placeholder p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.result-preview {
+  border-radius: 20px;
+  padding: 18px;
+  background: #13212d;
+  color: #dbedf6;
+  overflow: auto;
+}
+
+.result-preview pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 920px) {
+  .app-shell {
+    padding: 18px;
+  }
+
+  .login-grid,
+  .workspace-grid,
+  .field-row {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-heading,
+  .shell-header,
+  .card-top,
+  .workspace-section-header,
+  .workspace-section-heading {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .shell-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
