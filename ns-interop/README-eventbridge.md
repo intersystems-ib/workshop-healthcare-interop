@@ -7,6 +7,7 @@ The scenario simulates a common HIS-to-PACS pattern:
 - an external HIS stores pending integration requests in MySQL
 - IRIS polls `external_his.IntegrationRequest`
 - IRIS builds a canonical `Demo.EventBridge.Msg.InteropRequest`
+- IRIS routes the canonical request based on `TargetSystem`
 - IRIS enriches the request with patient, visit, and order data
 - IRIS transforms the request into HL7 v2
 - IRIS sends the HL7 message to a simulated PACS file destination
@@ -15,7 +16,8 @@ The scenario simulates a common HIS-to-PACS pattern:
 
 - Open [Demo.EventBridge.Production](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.EventBridge.Production)
 - Main poller: `HIS Pending Request In`
-- Main process: `EventBridge Process`
+- Router: `EventBridge Router`
+- PACS-specific process: `HIS PACS Process`
 - SQL outbound BO: `HIS SQL Out`
 - Simulated PACS target: `PACS HL7 File Out`
 

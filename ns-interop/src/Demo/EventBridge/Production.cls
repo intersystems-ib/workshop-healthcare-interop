@@ -18,7 +18,10 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Query">select RequestId,RequestType,SourceSystem,TargetSystem,PatientId,VisitId,coalesce(OrderId,'') as OrderId,EventDateTime from external_his.IntegrationRequest where Status = 'PENDING' order by CreatedAt asc limit 5</Setting>
     <Setting Target="Adapter" Name="StayConnected">300</Setting>
   </Item>
-  <Item Name="EventBridge Process" Category="EventBridge" ClassName="Demo.EventBridge.BP.InteropRequestProcess" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  <Item Name="EventBridge Router" Category="EventBridge" ClassName="EnsLib.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">Demo.EventBridge.Rule.RouteByTargetSystem</Setting>
+  </Item>
+  <Item Name="HIS PACS Process" Category="EventBridge" ClassName="Demo.EventBridge.BP.HISPACSProcess" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
   </Item>
   <Item Name="JavaGateway" Category="" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="ClassPath">/app/install/mysql-connector-j-8.4.0.jar</Setting>

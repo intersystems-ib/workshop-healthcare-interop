@@ -1,4 +1,5 @@
-Class Demo.EventBridge.BP.InteropRequestProcess Extends Ens.BusinessProcessBPL
+/// PACS-specific orchestration for EventBridge requests already routed to PACS.
+Class Demo.EventBridge.BP.HISPACSProcess Extends Ens.BusinessProcessBPL
 {
 
 XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]

@@ -15,8 +15,8 @@ Method OnProcessInput(pInput As EnsLib.SQL.Snapshot, Output pOutput As %Register
 		// Build the canonical request from the polled SQL row.
 		set interopRequest = ..BuildInteropRequest(pInput)
 		
-		// Keep the demo explicit: the SQL poller always forwards to the process.
-		$$$ThrowOnError(..SendRequestAsync("EventBridge Process", interopRequest))
+		// Forward the canonical request to the router.
+		$$$ThrowOnError(..SendRequestAsync("EventBridge Router", interopRequest))
 	} catch ex {
 		set sc = ex.AsStatus()
 	}
