@@ -1,9 +1,6 @@
 {
-    "files.associations": {
-        "iris.script": "objectscript"
-    },
     "objectscript.conn": {
-        "active": false,
+        "active": true,
         "ns": "INTEROP",
         "host": "localhost",
         "port": 52773,

@@ -35,4 +35,18 @@ ClassMethod DateToHL7DateTime(pDate As %Date) As %String
 	quit ret
 }
 
+/// Converts an ODBC date string to an IRIS logical date
+ClassMethod OdbcDateToLogical(pValue As %String) As %Date
+{
+	if $get(pValue)="" quit ""
+	quit ##class(%Library.Date).OdbcToLogical(pValue)
+}
+
+/// Converts an ODBC timestamp string to an IRIS logical timestamp
+ClassMethod OdbcTimestampToLogical(pValue As %String) As %TimeStamp
+{
+	if $get(pValue)="" quit ""
+	quit ##class(%Library.TimeStamp).OdbcToLogical(pValue)
+}
+
 }

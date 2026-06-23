@@ -83,14 +83,14 @@ The UI expects the workshop IRIS instance to already be running, and the FHIR re
 ### 🗺️ Repo Map
 
 - [http/](./http/) contains runnable VS Code REST Client requests for the workshop scenarios
-- [ns-interop/](./ns-interop/) contains the interoperability classes for the Lab Workflow scenario
+- [ns-interop/](./ns-interop/) contains the interoperability classes for the Lab Workflow and EventBridge scenarios
 - [ns-fhirrepo/](./ns-fhirrepo/) contains FHIR repository and FHIR interoperability production code
 - [ns-user/](./ns-user/) contains user namespace classes, including SOAP-related artifacts used in the workshop
 - [ui/](./ui/) contains the React frontend for browsing patients and viewing FHIR-backed health records
 - [install/](./install/) contains install-time assets such as roles, web app definitions, HL7 resources, sample FHIR data, and helper config files
-- [samples/](./samples/) contains HL7 sample messages and input/output folders used to simulate inbound lab results
+- [samples/](./samples/) contains HL7 sample messages and scenario-specific input/output folders
 - [jupyter/](./jupyter/) contains the notebook environment used for FHIR SQL Builder exploration
-- [mysql/](./mysql/) contains the sample external database used for test catalog validation
+- [mysql/](./mysql/) contains the sample external database used for both the Lab Workflow and EventBridge demos
 - [local/LOCAL.md](./local/LOCAL.md) documents a local customization used to expose an HL7 XML view in the portal
 
 ### 🔎 Validation Checklist
@@ -205,7 +205,19 @@ Then:
 
 ---
 
-## 📦 Scenario 2: FHIR Repository
+## 🌉 Additional Interop Scenario: SQL EventBridge
+
+This repository also includes a second interoperability scenario focused on a common HIS-to-PACS pattern:
+
+- IRIS polls pending integration requests from an external HIS MySQL schema
+- builds a canonical `Demo.EventBridge.Msg.InteropRequest`
+- enriches it with patient / visit / order data
+- transforms it into HL7 v2 `ADT^A08` and `ORM^O01`
+- delivers the result to a simulated PACS by writing HL7 files
+
+Implementation notes and walkthrough steps are documented in [ns-interop/README-eventbridge.md](./ns-interop/README-eventbridge.md).
+
+## 📦 Scenario 3: FHIR Repository
 
 Let’s persist and interact with FHIR resources via InterSystems IRIS for Health.
 

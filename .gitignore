@@ -23,6 +23,8 @@ local/*
 data/hl7files/*.hl7
 samples/out/*
 samples/inarchive/*
+samples/eventbridge/out/*
+!samples/eventbridge/out/.gitkeep
 
 # generated hl7 files (data)
 data/maternalRisk/hl7gen/*.hl7
