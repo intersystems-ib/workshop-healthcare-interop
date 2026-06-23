@@ -39,7 +39,7 @@ Open the `workshop-healthcare-interop` folder in **VS Code** to explore the sour
 After `docker compose up -d`, use these entrypoints to verify the workshop is ready:
 
 1. Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp) and log in with `superuser` / `SYS`
-2. Send a sample HIS order from [http/his-orders.http](./http/his-orders.http)
+2. Send a sample HIS order from [http/labworkflow-orders.http](./http/labworkflow-orders.http)
 3. Configure the FHIR server as described below, then run [http/fhir-repository.http](./http/fhir-repository.http)
 4. Optionally open [JupyterLab](http://localhost:8888/lab/tree/IRISPython.ipynb)
 
@@ -83,12 +83,12 @@ The UI expects the workshop IRIS instance to already be running, and the FHIR re
 ### 🗺️ Repo Map
 
 - [http/](./http/) contains runnable VS Code REST Client requests for the workshop scenarios
-- [ns-interop/](./ns-interop/) contains the interoperability classes for the HIS to LAB order and result flow
+- [ns-interop/](./ns-interop/) contains the interoperability classes for the Lab Workflow scenario
 - [ns-fhirrepo/](./ns-fhirrepo/) contains FHIR repository and FHIR interoperability production code
 - [ns-user/](./ns-user/) contains user namespace classes, including SOAP-related artifacts used in the workshop
 - [ui/](./ui/) contains the React frontend for browsing patients and viewing FHIR-backed health records
 - [install/](./install/) contains install-time assets such as roles, web app definitions, HL7 resources, sample FHIR data, and helper config files
-- [test/](./test/) contains HL7 sample messages and input/output folders used to simulate inbound lab results
+- [samples/](./samples/) contains HL7 sample messages and input/output folders used to simulate inbound lab results
 - [jupyter/](./jupyter/) contains the notebook environment used for FHIR SQL Builder exploration
 - [mysql/](./mysql/) contains the sample external database used for test catalog validation
 - [local/LOCAL.md](./local/LOCAL.md) documents a local customization used to expose an HL7 XML view in the portal
@@ -96,13 +96,13 @@ The UI expects the workshop IRIS instance to already be running, and the FHIR re
 ### 🔎 Validation Checklist
 
 - [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp) is reachable
-- `POST /his/api/order` works via [http/his-orders.http](./http/his-orders.http)
+- `POST /his/api/order` works via [http/labworkflow-orders.http](./http/labworkflow-orders.http)
 - `GET /csp/healthshare/fhirrepo/fhir/r4/metadata` works via [http/fhir-repository.http](./http/fhir-repository.http) after FHIR setup
 - [JupyterLab](http://localhost:8888/lab/tree/IRISPython.ipynb) is reachable
 
 ---
 
-## 💡 Scenario 1: HIS Orders & Lab Results
+## 💡 Scenario 1: REST-to-HL7 Lab Workflow
 
 ### 🧾 Step 1: HIS Sends Order to LAB
 
@@ -114,7 +114,7 @@ The UI expects the workshop IRIS instance to already be running, and the FHIR re
 
 - Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp)  
 - Login with: `superuser` / `SYS`
-- Go to [Demo.OrderProduction](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.OrderProduction)
+- Go to [Demo.LabWorkflow.Production](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.LabWorkflow.Production)
 
 Explore:
 - Components: Business Services, Processes, Operations
@@ -124,23 +124,23 @@ Explore:
 #### 🧪 Test the LAB Catalog Lookup
 
 - Select the `LAB Catalog SQL` component. This is the component that runs a SQL query in an external DB to validate a test code.
-- Use *Actions > Test* with message type: `Demo.LAB.Msg.CheckTestCatalogReq`
+- Use *Actions > Test* with message type: `Demo.LabWorkflow.LAB.Msg.CheckTestCatalogReq`
 - Try codes like `GLU` or `CBC` and check the results
 
 If you are interested in having a look at the the catalog DB directly:
 
 ```bash
 docker exec -it mysqlh bash
-mysql --host=localhost --user=testuser testdb -p  # Password: testpassword
+mysql --host=localhost --user=testuser labworkflow -p  # Password: testpassword
 ```
 
 ```sql
-SELECT * FROM TestCatalog;
+SELECT * FROM labworkflow.TestCatalog;
 ```
 
 #### 📤 Send an Order from HIS
 
-Use the VS Code HTTP requests in [http/his-orders.http](./http/his-orders.http) or `curl` to create a new order from HIS:
+Use the VS Code HTTP requests in [http/labworkflow-orders.http](./http/labworkflow-orders.http) or `curl` to create a new order from HIS:
 
 ```bash
 curl -X POST http://localhost:52773/his/api/order \
@@ -193,7 +193,7 @@ Then:
 
 #### 🔁 Simulate ORU^R01 Messages
 
-- Copy `test/ORUR01_*` files into `test/in` directory
+- Copy `samples/ORUR01_*` files into `samples/in` directory
 - Monitor message flow in [Message Viewer](http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen)
 
 #### 🧠 Understand HL7 Routing

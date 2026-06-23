@@ -8,7 +8,7 @@
     <CSPZENEnabled>true</CSPZENEnabled>
     <CSRFToken>true</CSRFToken>
     <DeepSeeEnabled>false</DeepSeeEnabled>
-    <DispatchClass>Demo.HIS.BS.OrderAPI</DispatchClass>
+    <DispatchClass>Demo.LabWorkflow.HIS.BS.OrderAPI</DispatchClass>
     <Enabled>true</Enabled>
     <HyperEvent>0</HyperEvent>
     <iKnowEnabled>false</iKnowEnabled>
