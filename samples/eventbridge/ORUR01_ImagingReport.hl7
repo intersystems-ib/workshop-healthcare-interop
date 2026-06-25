@@ -1,0 +1,7 @@
+MSH|^~\&|PACS|PACS|HIS|HOSPITAL|20260625093000||ORU^R01|EVB-ORU-0001|P|2.5
+PID|1||MRN-EB-1002^^^HISDB^MR||Ortega^Luis^Alberto||19741103|M
+PV1|1|O|RAD^02^B||||DOC-200^Molina^Javier||||||||||VN-EB-2002
+ORC|RE|PO-EB-3001
+OBR|1|PO-EB-3001|FO-EB-3001|XRCH^Chest X-Ray^LN|||20260625092500|||||||||||F
+OBX|1|TX|RPT^Radiology Report^LN||No acute cardiopulmonary findings.|||
+OBX|2|CE|IMP^Impression^LN||NORMAL^Normal chest radiograph^L|||N|||F

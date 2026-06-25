@@ -35,6 +35,20 @@ ClassMethod DateToHL7DateTime(pDate As %Date) As %String
 	quit ret
 }
 
+/// Converts an HL7 TS value such as 20260625093000 to an IRIS logical timestamp
+ClassMethod HL7ToLogicalTimestamp(pValue As %String) As %TimeStamp
+{
+	if $get(pValue)="" quit ""
+	set tValue = $extract(pValue,1,14)
+	if $length(tValue)<8 quit ""
+	set tDate = $extract(tValue,1,4)_"-"_$extract(tValue,5,6)_"-"_$extract(tValue,7,8)
+	set tTime = "00:00:00"
+	if $length(tValue)'<10 {
+		set tTime = $extract(tValue,9,10)_":"_$select($length(tValue)'<12:$extract(tValue,11,12),1:"00")_":"_$select($length(tValue)'<14:$extract(tValue,13,14),1:"00")
+	}
+	quit tDate_" "_tTime
+}
+
 /// Converts an ODBC date string to an IRIS logical date
 ClassMethod OdbcDateToLogical(pValue As %String) As %Date
 {

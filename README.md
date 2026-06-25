@@ -214,6 +214,8 @@ This repository also includes a second interoperability scenario focused on a co
 - enriches it with patient / visit / order data
 - transforms it into HL7 v2 `ADT^A08` and `ORM^O01`
 - delivers the result to a simulated PACS by writing HL7 files
+- receives `ORU^R01` messages back from PACS
+- routes them to a BPL process and transforms them into a SOAP request for HIS
 
 Implementation notes and walkthrough steps are documented in [ns-interop/README-eventbridge.md](./ns-interop/README-eventbridge.md).
 

@@ -26,6 +26,10 @@ The reverse PACS-to-HIS path uses:
 - PACS-specific process: `HIS PACS Process`
 - SQL outbound BO: `HIS SQL Out`
 - Simulated PACS target: `PACS HL7 File Out`
+- Reverse HL7 input: `PACS HL7 File In`
+- Reverse HL7 router: `PACS HL7 Router In`
+- Reverse SOAP process: `PACS HIS Process`
+- Reverse SOAP target: `HIS Report SOAP Out`
 
 The poller uses the SQL inbound adapter `Query` plus `DeleteQuery` to claim fetched rows immediately by updating them from `PENDING` to `PROCESSING`.
 The SQL outbound BO uses its `MessageMap` to dispatch one detail-enrichment call and the final status update behavior.
@@ -111,6 +115,22 @@ Generated classes live under:
 - `Demo.EventBridge.HIS.WSC`
 - `Demo.EventBridge.HIS.WSC.BO`
 - `Demo.EventBridge.HIS.WSC.Msg`
+
+## Reverse Flow
+
+The reverse path demonstrates a simple PACS-to-HIS report flow:
+
+- `PACS HL7 File In` reads inbound `ORU^R01` messages from `samples/eventbridge/in/`
+- `PACS HL7 Router In` dispatches `ORU^R01` messages to `PACS HIS Process`
+- `Demo.EventBridge.PACS.DT.HIS.ORUR01ToSubmitReportRequest` maps the HL7 report to the generated SOAP request
+- `HIS Report SOAP Out` calls the HIS SOAP service in the `USER` namespace
+
+Relevant classes:
+
+- `Demo.EventBridge.PACS.Rule.RouterIn`
+- `Demo.EventBridge.PACS.BP.HISReportProcess`
+- `Demo.EventBridge.PACS.DT.HIS.ORUR01ToSubmitReportRequest`
+- `Demo.EventBridge.HIS.WSC.BO.ReportServiceSoap`
 
 ## Output
 

@@ -41,6 +41,22 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="Charset">utf-8</Setting>
     <Setting Target="Adapter" Name="Overwrite">1</Setting>
   </Item>
+  <Item Name="PACS HL7 File In" Category="PACS" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="MessageSchemaCategory">2.5</Setting>
+    <Setting Target="Adapter" Name="FilePath">/app/samples/eventbridge/in</Setting>
+    <Setting Target="Adapter" Name="ArchivePath">/app/samples/eventbridge/inarchive</Setting>
+    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
+    <Setting Target="Host" Name="TargetConfigNames">PACS HL7 Router In</Setting>
+  </Item>
+  <Item Name="PACS HL7 Router In" Category="PACS" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="BusinessRuleName">Demo.EventBridge.PACS.Rule.RouterIn</Setting>
+  </Item>
+  <Item Name="PACS HIS Process" Category="PACS" ClassName="Demo.EventBridge.PACS.BP.HISReportProcess" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
+  </Item>
+  <Item Name="HIS Report SOAP Out" Category="HIS" ClassName="Demo.EventBridge.HIS.WSC.BO.ReportServiceSoap" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="WebServiceURL">http://localhost:52773/csp/user/Demo.EventBridge.HIS.ReportService.cls</Setting>
+    <Setting Target="Adapter" Name="SOAPCredentials">HISWS_User</Setting>
+  </Item>
 </Production>
 }
 
