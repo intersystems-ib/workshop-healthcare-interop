@@ -12,6 +12,8 @@ The scenario simulates a common HIS-to-PACS pattern:
 - IRIS transforms the request into HL7 v2
 - IRIS sends the HL7 message to a simulated PACS file destination
 
+This is a common real-world enablement pattern for healthcare interoperability. Many HIS platforms do not natively publish every HL7 feed required by downstream systems. In those cases, IRIS can read pending business events from the HIS, enrich the data, and emit standard HL7 messages that allow the HIS to participate in a broader interoperability ecosystem.
+
 The reverse PACS-to-HIS path uses:
 
 - an inbound `ORU^R01` HL7 router

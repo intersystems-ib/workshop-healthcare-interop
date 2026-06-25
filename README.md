@@ -217,6 +217,8 @@ This repository also includes a second interoperability scenario focused on a co
 - receives `ORU^R01` messages back from PACS
 - routes them to a BPL process and transforms them into a SOAP request for HIS
 
+This scenario highlights a common interoperability enablement pattern: when a HIS does not directly emit the HL7 feeds required by downstream systems, IRIS can read pending internal events, enrich them with HIS data, and generate standard HL7 messages that can be integrated into the wider healthcare ecosystem.
+
 Implementation notes and walkthrough steps are documented in [ns-interop/README-eventbridge.md](./ns-interop/README-eventbridge.md).
 
 ## 📦 Scenario 3: FHIR Repository
