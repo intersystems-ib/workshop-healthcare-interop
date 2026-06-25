@@ -12,6 +12,12 @@ The scenario simulates a common HIS-to-PACS pattern:
 - IRIS transforms the request into HL7 v2
 - IRIS sends the HL7 message to a simulated PACS file destination
 
+The reverse PACS-to-HIS path uses:
+
+- an inbound `ORU^R01` HL7 router
+- a PACS-to-HIS business process
+- a SOAP web client generated from the HIS WSDL
+
 ## Production
 
 - Open [Demo.EventBridge.Production](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.EventBridge.Production)
@@ -85,6 +91,26 @@ Message-specific segments are handled directly inside the PACS transforms:
 
 - `EVN` inside `Demo.EventBridge.DT.PACS.InteropRequestToADTA08`
 - `PV1`, `ORC` and `OBR` inside `Demo.EventBridge.DT.PACS.InteropRequestToORMO01`
+
+## SOAP Client Generation
+
+The reverse path uses SOAP client classes generated from the HIS demo web service WSDL.
+
+In VS Code use the SOAP wizard with these values:
+
+- `VSCode -> Soap wizard`
+- `File: /app/install/EventBridgeHISReportService.wsdl`
+- `Proxy class package: Demo.EventBridge.HIS.WSC`
+- `Create Business Operation: yes`
+- `Business Operation Package: Demo.EventBridge.HIS.WSC.BO`
+- `Request Object Package: Demo.EventBridge.HIS.WSC.Msg`
+- `Response Object Package: Demo.EventBridge.HIS.WSC.Msg`
+
+Generated classes live under:
+
+- `Demo.EventBridge.HIS.WSC`
+- `Demo.EventBridge.HIS.WSC.BO`
+- `Demo.EventBridge.HIS.WSC.Msg`
 
 ## Output
 
