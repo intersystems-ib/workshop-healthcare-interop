@@ -66,6 +66,13 @@ SELECT * FROM external_his.Visit;
 SELECT * FROM external_his.RadiologyOrder;
 ```
 
+For interactive demo work in DBeaver, you can also use
+[mysql/eventbridge-demo.sql](../mysql/eventbridge-demo.sql), which includes:
+
+- quick inspection queries
+- sample inserts for new `ADT_A08` and `ORM_O01` requests
+- reset statements to move rows back to `PENDING`
+
 ## Canonical Message
 
 The scenario uses `Demo.EventBridge.Msg.InteropInfo` as the reusable canonical payload, wrapped by:
