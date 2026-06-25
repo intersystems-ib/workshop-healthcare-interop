@@ -56,7 +56,7 @@ What is still manual:
 
 ### 🖥️ Optional UI
 
-This repository also includes a small React UI in [ui/](./ui/) for the FHIR repository demo.
+This repository also includes a small React UI in [fhir-ui/](./fhir-ui/) for the FHIR repository demo.
 It is intended to make the sample patient data easier to explore visually by providing:
 
 - patient search
@@ -67,7 +67,7 @@ It is intended to make the sample patient data easier to explore visually by pro
 To run it locally:
 
 ```bash
-cd ui
+cd fhir-ui
 npm install
 npm run dev
 ```
@@ -86,7 +86,7 @@ The UI expects the workshop IRIS instance to already be running, and the FHIR re
 - [ns-interop/](./ns-interop/) contains the interoperability classes for the Lab Workflow and EventBridge scenarios
 - [ns-fhirrepo/](./ns-fhirrepo/) contains FHIR repository and FHIR interoperability production code
 - [ns-user/](./ns-user/) contains user namespace classes, including SOAP-related artifacts used in the workshop
-- [ui/](./ui/) contains the React frontend for browsing patients and viewing FHIR-backed health records
+- [fhir-ui/](./fhir-ui/) contains the React frontend for browsing patients and viewing FHIR-backed health records
 - [install/](./install/) contains install-time assets such as roles, web app definitions, HL7 resources, sample FHIR data, and helper config files
 - [samples/](./samples/) contains HL7 sample messages and scenario-specific input/output folders
 - [jupyter/](./jupyter/) contains the notebook environment used for FHIR SQL Builder exploration

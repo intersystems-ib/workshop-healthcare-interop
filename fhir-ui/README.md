@@ -27,7 +27,7 @@ From the repo root, start IRIS first:
 docker compose up -d
 ```
 
-From `ui/`:
+From `fhir-ui/`:
 
 ```bash
 npm install
