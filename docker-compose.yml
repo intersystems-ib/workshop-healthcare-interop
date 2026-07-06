@@ -15,7 +15,8 @@ services:
     - .:/app
     - ./irisdata:/irisdata
     environment:
-    - ISC_DATA_DIRECTORY=/irisdata
+      TZ: ${TZ:-Europe/Madrid}
+      ISC_DATA_DIRECTORY: /irisdata
 
   # Sample external database to integrate from InterSystems IRIS interoperability framework  
   mysql:
