@@ -45,3 +45,11 @@ services:
     volumes: 
       - ./jupyter/notebooks:/home/jovyan/
     command: "start-notebook.sh --NotebookApp.token='' --NotebookApp.password=''"
+
+  # Local SMTP sink used by the demo alert email operation
+  mailpit:
+    image: axllent/mailpit:latest
+    container_name: mailpith
+    ports:
+      - "1025:1025"
+      - "8025:8025"

@@ -42,10 +42,12 @@ After `docker compose up -d`, use these entrypoints to verify the workshop is re
 2. Send a sample HIS order from [http/labworkflow-orders.http](./http/labworkflow-orders.http)
 3. Configure the FHIR server as described below, then run [http/fhir-repository.http](./http/fhir-repository.http)
 4. Optionally open [JupyterLab](http://localhost:8888/lab/tree/IRISPython.ipynb)
+5. Optionally open [Mailpit](http://localhost:8025) to inspect demo alert emails
 
 What is automatic after `docker compose up -d`:
 
 - IRIS, MySQL, and Jupyter containers are started
+- Mailpit is started to capture demo alert emails locally
 - Source code is mounted into the IRIS container
 
 What is still manual:
@@ -204,6 +206,14 @@ Then:
 - Check routing rules by clicking the magnifier next to *Business Rule Name*
 
 <img src="./img/rule-editor.png" width="700px" />
+
+#### 📧 Demo Alert Emails
+
+The `Alert Email Out` operation is configured to send emails to a local Mailpit container instead of a real SMTP provider.
+
+- Open [Mailpit](http://localhost:8025)
+- Trigger an alert flow in the production
+- Inspect the captured email in the Mailpit inbox
 
 ---
 
