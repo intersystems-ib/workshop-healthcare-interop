@@ -184,10 +184,6 @@
         <Name>%System_CallOut</Name>
         <Permission>4</Permission>
       </Resource>
-      <Resource>
-        <Name>%WebTerminal</Name>
-        <Permission>7</Permission>
-      </Resource>
     </Resources>
     <EscalationOnly>false</EscalationOnly>
     <Version>5</Version>
