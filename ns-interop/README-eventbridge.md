@@ -23,18 +23,20 @@ The reverse PACS-to-HIS path uses:
 ## Production
 
 - Open [Demo.EventBridge.Production](http://localhost:52773/csp/healthshare/interop/EnsPortal.ProductionConfig.zen?PRODUCTION=Demo.EventBridge.Production)
+- Also run `Demo.Backend.Production` in the `USER` namespace as the HL7 transport backend
 - Main poller: `HIS Pending Request In`
 - Router: `EventBridge Router`
 - PACS-specific process: `HIS PACS Process`
 - SQL outbound BO: `HIS SQL Out`
-- Simulated PACS target: `PACS HL7 File Out`
-- Reverse HL7 input: `PACS HL7 File In`
+- Outbound HL7 TCP operation: `PACS TCP Out`
+- Reverse HL7 TCP service: `PACS TCP In`
 - Reverse HL7 router: `PACS HL7 Router In`
 - Reverse SOAP process: `PACS HIS Process`
 - Reverse SOAP target: `HIS Report SOAP Out`
 
 The poller uses the SQL inbound adapter `Query` plus `DeleteQuery` to claim fetched rows immediately by updating them from `PENDING` to `PROCESSING`.
 The SQL outbound BO uses its `MessageMap` to dispatch one detail-enrichment call and the final status update behavior.
+HL7 transport is bridged through `Demo.Backend.Production`, which keeps the file-based sample folders while the main production communicates over HL7 TCP.
 
 ## MySQL Data
 
@@ -129,7 +131,8 @@ Generated classes live under:
 
 The reverse path demonstrates a simple PACS-to-HIS report flow:
 
-- `PACS HL7 File In` reads inbound `ORU^R01` messages from `samples/eventbridge/in/`
+- `Demo.Backend.Production` reads inbound `ORU^R01` messages from `samples/eventbridge/in/`
+- `PACS TCP In` receives them over HL7 TCP
 - `PACS HL7 Router In` dispatches `ORU^R01` messages to `PACS HIS Process`
 - `Demo.EventBridge.PACS.DT.HIS.ORUR01ToSubmitReportRequest` maps the HL7 report to the generated SOAP request
 - `HIS Report SOAP Out` calls the HIS SOAP service in the `USER` namespace
@@ -143,4 +146,4 @@ Relevant classes:
 
 ## Output
 
-Generated HL7 files are written to [samples/eventbridge/out/](../samples/eventbridge/out/).
+Generated outbound HL7 files are written by `Demo.Backend.Production` to [samples/eventbridge/out/](../samples/eventbridge/out/).

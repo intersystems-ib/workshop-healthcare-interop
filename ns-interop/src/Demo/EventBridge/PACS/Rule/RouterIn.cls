@@ -9,7 +9,7 @@ XData RuleDefinition [ XMLNamespace = "http://www.intersystems.com/rule" ]
 <ruleDefinition alias="" context="EnsLib.HL7.MsgRouter.RoutingEngine" production="Demo.EventBridge.Production">
 <ruleSet name="" effectiveBegin="" effectiveEnd="">
 <rule name="Process Incoming PACS Reports">
-<constraint name="source" value="PACS HL7 File In"></constraint>
+<constraint name="source" value="PACS TCP In"></constraint>
 <constraint name="docCategory" value="2.5"></constraint>
 <constraint name="docName" value="ORU_R01"></constraint>
 <when condition="(Document.{MSH:SendingFacility.NamespaceID}=&quot;PACS&quot;)||(Document.{MSH:SendingApplication.NamespaceID}=&quot;PACS&quot;)" comment="">

@@ -19,6 +19,7 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 <assign value='"LAB"' property='target.{ReceivingApplication}' action='set' />
 <assign value='##class(Demo.Util.Helper).HL7CurrentDateTime()' property='target.{DateTimeOfMessage.Time}' action='set' />
 <assign value='"P"' property='target.{ProcessingID}' action='set' />
+<assign value='"2.5"' property='target.{VersionID.VersionID}' action='set' />
 <assign value='"AL"' property='target.{AcceptAcknowledgmentType}' action='set' />
 <assign value='"NE"' property='target.{ApplicationAcknowledgmentTyp}' action='set' />
 <assign value='source.msgId' property='target.{MessageControlID}' action='set' />

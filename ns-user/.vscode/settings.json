@@ -1,7 +1,4 @@
 {
-    "files.associations": {
-        "iris.script": "objectscript"
-    },
     "objectscript.conn": {
         "active": true,
         "ns": "USER",

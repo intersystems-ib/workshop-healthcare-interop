@@ -21,10 +21,12 @@ local/*
 
 # generated hl7 files
 data/hl7files/*.hl7
-samples/out/*
-samples/inarchive/*
+samples/labworkflow/out/*
+samples/labworkflow/inarchive/*
 samples/eventbridge/out/*
 samples/eventbridge/inarchive/*
+!samples/labworkflow/out/.gitkeep
+!samples/labworkflow/inarchive/.gitkeep
 !samples/eventbridge/out/.gitkeep
 !samples/eventbridge/inarchive/.gitkeep
 

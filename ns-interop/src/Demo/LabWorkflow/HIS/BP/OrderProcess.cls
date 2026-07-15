@@ -33,7 +33,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 <transform name='LAB Catalog to HL7' class='Demo.LabWorkflow.HIS.DT.LAB.CheckCatalogRspToORMO01' source='context.catalogRsp' target='context.hl7' xpos='335' ypos='600' >
 <annotation><![CDATA[Add Catalog Info to ORM^O01]]></annotation>
 </transform>
-<call name='Send to LAB' target='LAB HL7 File Out' async='1' xpos='335' ypos='700' >
+<call name='Send to LAB' target='LAB TCP Out' async='1' xpos='335' ypos='700' >
 <request type='EnsLib.HL7.Message' >
 <assign property="callrequest" value="context.hl7" action="set" languageOverride="" />
 </request>

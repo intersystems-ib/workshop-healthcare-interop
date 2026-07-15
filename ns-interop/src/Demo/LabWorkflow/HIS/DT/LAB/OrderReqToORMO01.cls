@@ -13,6 +13,8 @@ XData DTL [ XMLNamespace = "http://www.intersystems.com/dtl" ]
 {
 <transform sourceClass='Demo.LabWorkflow.HIS.Msg.OrderReq' targetClass='EnsLib.HL7.Message' targetDocType='2.5:ORM_O01' create='new' language='objectscript' >
 <subtransform class='Demo.LabWorkflow.HIS.DT.LAB.OrderReqTosegMSH' targetObj='target.{MSH}' sourceObj='source' />
+<assign value='"ORM"' property='target.{MSH:MessageType.MessageCode}' action='set' />
+<assign value='"O01"' property='target.{MSH:MessageType.TriggerEvent}' action='set' />
 <if condition='source.clinicalInfo&apos;=""' >
 <true>
 <assign value='1' property='target.{NTE():SetIDNTE}' action='set' />

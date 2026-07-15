@@ -34,19 +34,17 @@ XData ProductionDefinition
     <Setting Target="Adapter" Name="JGService">JavaGateway</Setting>
     <Setting Target="Adapter" Name="JDBCClasspath">/app/install/mysql-connector-j-8.4.0.jar</Setting>
   </Item>
-  <Item Name="PACS HL7 File Out" Category="Order" ClassName="EnsLib.HL7.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Adapter" Name="FilePath">/app/samples/eventbridge/out</Setting>
-    <Setting Target="Host" Name="DefCharEncoding">utf-8</Setting>
-    <Setting Target="Host" Name="Filename">EventBridge_%Q%!+(_a).hl7</Setting>
-    <Setting Target="Adapter" Name="Charset">utf-8</Setting>
-    <Setting Target="Adapter" Name="Overwrite">1</Setting>
+  <Item Name="PACS TCP Out" Category="Order" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
+    <Setting Target="Adapter" Name="Port">62010</Setting>
+    <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
-  <Item Name="PACS HL7 File In" Category="Result" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="PACS TCP In" Category="Result" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.5</Setting>
-    <Setting Target="Adapter" Name="FilePath">/app/samples/eventbridge/in</Setting>
-    <Setting Target="Adapter" Name="ArchivePath">/app/samples/eventbridge/inarchive</Setting>
-    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
+    <Setting Target="Adapter" Name="Port">62011</Setting>
     <Setting Target="Host" Name="TargetConfigNames">PACS HL7 Router In</Setting>
+    <Setting Target="Host" Name="ArchiveIO">1</Setting>
+    <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRIS</Setting>
   </Item>
   <Item Name="PACS HL7 Router In" Category="Result" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">Demo.EventBridge.PACS.Rule.RouterIn</Setting>

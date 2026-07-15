@@ -110,6 +110,8 @@ The UI expects the workshop IRIS instance to already be running, and the FHIR re
 
 >A Hospital Information System (HIS) sends a REST request to IRIS → IRIS validates the test code via an external SQL catalog → IRIS transforms the message into HL7 (ORM^O01) → Sends it to the Laboratory.
 
+In this workshop, the HL7 transport is bridged through a backend production in the `USER` namespace. The main interop productions use HL7 TCP services and operations, while `Demo.Backend.Production` keeps the familiar sample folders for file-based simulation of external systems.
+
 #### 🔍 Explore the Production
 
 - Open the [Management Portal](http://localhost:52773/csp/sys/UtilHome.csp)  
@@ -193,7 +195,7 @@ Then:
 
 #### 🔁 Simulate ORU^R01 Messages
 
-- Copy `samples/ORUR01_*` files into `samples/in` directory
+- Copy `samples/labworkflow/ORUR01_*` files into `samples/labworkflow/in` directory
 - Monitor message flow in [Message Viewer](http://localhost:52773/csp/healthshare/interop/EnsPortal.MessageViewer.zen)
 
 #### 🧠 Understand HL7 Routing

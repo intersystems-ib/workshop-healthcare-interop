@@ -7,15 +7,14 @@ XData ProductionDefinition
   <Description></Description>
   <ActorPoolSize>2</ActorPoolSize>
   <Item Name="HIS Order API In" Category="Order" ClassName="Demo.LabWorkflow.HIS.BS.OrderAPI" PoolSize="0" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Host" Name="ArchiveIO">0</Setting>
   </Item>
   <Item Name="HIS Order Process" Category="Order" ClassName="Demo.LabWorkflow.HIS.BP.OrderProcess" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
   </Item>
-  <Item Name="LAB HL7 File Out" Category="Order" ClassName="EnsLib.HL7.Operation.FileOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
-    <Setting Target="Adapter" Name="FilePath">/app/samples/out</Setting>
-    <Setting Target="Host" Name="DefCharEncoding">utf-8</Setting>
-    <Setting Target="Host" Name="Filename">ORMO01_%Q%!+(_a).hl7</Setting>
-    <Setting Target="Adapter" Name="Charset">utf-8</Setting>
-    <Setting Target="Adapter" Name="Overwrite">1</Setting>
+  <Item Name="LAB TCP Out" Category="Order" ClassName="EnsLib.HL7.Operation.TCPOperation" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+    <Setting Target="Adapter" Name="IPAddress">localhost</Setting>
+    <Setting Target="Adapter" Name="Port">62000</Setting>
+    <Setting Target="Host" Name="ArchiveIO">1</Setting>
   </Item>
   <Item Name="JavaGateway" Category="" ClassName="EnsLib.JavaGateway.Service" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="ClassPath">/app/install/mysql-connector-j-8.4.0.jar</Setting>
@@ -33,11 +32,12 @@ XData ProductionDefinition
     <Setting Target="Host" Name="ResponseClass">Demo.LabWorkflow.LAB.Msg.CheckTestCatalogRsp</Setting>
     <Setting Target="Adapter" Name="JDBCClasspath">/app/install/mysql-connector-j-8.4.0.jar</Setting>
   </Item>
-  <Item Name="LAB HL7 File In" Category="Result" ClassName="EnsLib.HL7.Service.FileService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
+  <Item Name="LAB TCP In" Category="Result" ClassName="EnsLib.HL7.Service.TCPService" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="true" Schedule="">
     <Setting Target="Host" Name="MessageSchemaCategory">2.5</Setting>
-    <Setting Target="Adapter" Name="FilePath">/app/samples/in</Setting>
-    <Setting Target="Adapter" Name="FileSpec">*.hl7</Setting>
+    <Setting Target="Adapter" Name="Port">62001</Setting>
     <Setting Target="Host" Name="TargetConfigNames">LAB HL7 Router In</Setting>
+    <Setting Target="Host" Name="ArchiveIO">1</Setting>
+    <Setting Target="Host" Name="LocalFacilityApplication">ISC:IRIS</Setting>
   </Item>
   <Item Name="LAB HL7 Router In" Category="Result" ClassName="EnsLib.HL7.MsgRouter.RoutingEngine" PoolSize="1" Enabled="true" Foreground="false" Comment="" LogTraceEvents="false" Schedule="">
     <Setting Target="Host" Name="BusinessRuleName">Demo.LabWorkflow.LAB.Rule.RouterIn</Setting>

@@ -21,7 +21,7 @@ XData BPL [ XMLNamespace = "http://www.intersystems.com/bpl" ]
 </call>
 <assign name='Select DTL Class' property='context.dtlClass' value='$select(request.Info.RequestType=&quot;ADT_A08&quot;:&quot;Demo.EventBridge.DT.PACS.InteropRequestToADTA08&quot;,1:&quot;Demo.EventBridge.DT.PACS.InteropRequestToORMO01&quot;)' action='set' />
 <transform name='Canonical To HL7' class='@context.dtlClass' source='context.interopRsp' target='context.hl7' xpos='200' ypos='550' />
-<call name='Send HL7 To PACS' target='PACS HL7 File Out' async='0' timeout='15' xpos='200' ypos='700' >
+<call name='Send HL7 To PACS' target='PACS TCP Out' async='0' timeout='15' xpos='200' ypos='700' >
 <request type='EnsLib.HL7.Message' >
 <assign property='callrequest' value='context.hl7' action='set' />
 </request>
